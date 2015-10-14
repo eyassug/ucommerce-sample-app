@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using UCommerce;
 using UCommerce.Tree;
 using UCommerce.Tree.Impl;
 
-namespace SampleApp.Extensions.TreeHook.Provider
+namespace SampleApp.Extensions.UI.Tree
 {
 	/// <summary>
 	/// A content provider is a child node provider for supported node types.

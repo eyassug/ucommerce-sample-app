@@ -61,18 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="SampleApp.config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Css\About.css" />
     <Content Include="Media\about.png" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About.aspx.cs">
@@ -83,6 +76,12 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SampleApp.Extensions\SampleApp.Extensions.csproj">
+      <Project>{fe1a22e3-21a3-4653-a9d8-7df019d01433}</Project>
+      <Name>SampleApp.Extensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
