@@ -1,0 +1,24 @@
+syntax: glob
+
+# Visual Studio user files
+*.suo
+*.user
+*.csproj.sitecore
+
+# Visual Studio folders
+bin/
+obj/
+
+# Resharper
+_ReSharper*
+*.resharper
+*.ReSharper
+
+# Project folders
+webroot/
+
+# Other
+*nrcunch*
+*.orig
+*.tmp
+*.swp
