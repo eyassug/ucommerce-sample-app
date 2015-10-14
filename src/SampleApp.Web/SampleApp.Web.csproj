@@ -55,6 +55,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="UCommerce">
+      <HintPath>..\..\lib\uCommerce\UCommerce.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="SampleApp.config" />

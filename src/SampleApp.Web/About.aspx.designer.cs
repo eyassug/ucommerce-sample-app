@@ -13,12 +13,21 @@ namespace SampleApp.Web {
     public partial class About {
         
         /// <summary>
-        /// Version control.
+        /// uCommerceVersion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Version;
+        protected global::System.Web.UI.WebControls.Label uCommerceVersion;
+        
+        /// <summary>
+        /// SchemaVersion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label SchemaVersion;
     }
 }
