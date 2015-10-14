@@ -10,6 +10,18 @@ namespace SampleApp.Extensions.TreeHook.Provider
 	/// </summary>
 	public class AboutNodeProvider : ITreeContentProvider
 	{
+		private readonly string _nodeName;
+		private readonly IList<string> _supportTypes;
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public AboutNodeProvider(string nodeName, IList<string> supportTypes)
+		{
+			_nodeName = nodeName;
+			_supportTypes = supportTypes;
+		}
+
 		/// <summary>
 		/// Given a node type and possibly an id, the provider returnes a list of child nodes.
 		/// </summary>
@@ -22,7 +34,7 @@ namespace SampleApp.Extensions.TreeHook.Provider
 			{
 				new TreeNodeContent("version", -1)
 				{
-					Name = "About",
+					Name = _nodeName,
 					HasChildren = false,
 					Action = "/Apps/SampleApp/About.aspx",
 					Icon = "/Apps/SampleApp/Media/about.png"
@@ -37,7 +49,7 @@ namespace SampleApp.Extensions.TreeHook.Provider
 		/// <returns>true, if the node type is supported by the provider.</returns>
 		public bool Supports(string nodeType)
 		{
-			return nodeType == Constants.DataProvider.NodeType.Settings;
+			return _supportTypes.Contains(nodeType);
 		}
 	}
 }
