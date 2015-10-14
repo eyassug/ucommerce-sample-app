@@ -1,0 +1,5 @@
+C:\Projects\uCommerce Sample App\src\SampleApp.Extensions\bin\Debug\SampleApp.Extensions.dll
+C:\Projects\uCommerce Sample App\src\SampleApp.Extensions\bin\Debug\SampleApp.Extensions.pdb
+C:\Projects\uCommerce Sample App\src\SampleApp.Extensions\bin\Debug\UCommerce.dll
+C:\Projects\uCommerce Sample App\src\SampleApp.Extensions\obj\Debug\SampleApp.Extensions.dll
+C:\Projects\uCommerce Sample App\src\SampleApp.Extensions\obj\Debug\SampleApp.Extensions.pdb
