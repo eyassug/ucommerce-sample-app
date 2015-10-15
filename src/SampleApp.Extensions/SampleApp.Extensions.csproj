@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\SampleApi.cs" />
+    <Compile Include="Model\TabConfiguration.cs" />
     <Compile Include="Model\ViewSection.cs" />
     <Compile Include="Queries\SchemaVersionQuery.cs" />
     <Compile Include="UI\Tab\AboutTabInSettings.cs" />
