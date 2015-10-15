@@ -9,9 +9,9 @@ namespace SampleApp.Extensions.UI.Tab
 	{
 		private readonly TabConfiguration _configuration;
 
-		public AboutTabInSettings(TabConfiguration configuration)
+		public AboutTabInSettings(TabConfiguration tabConfiguration)
 		{
-			_configuration = configuration;
+			_configuration = tabConfiguration;
 		}
 
 		public PipelineExecutionResult Execute(IPipelineArgs<ViewBuilderRequest, ViewBuilderResponse> subject)
