@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp.Extensions", "Sam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleApp.Extensions.Test", "SampleApp.Extensions.Test\SampleApp.Extensions.Test.csproj", "{AC6AB3DC-A623-4D58-93D8-A3F682D6DCA8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{E4FFE780-D10A-47A8-8471-B84D80FB5DBE}"
+	ProjectSection(SolutionItems) = preProject
+		..\tools\Deploy\Deploy.to.uCommerce.ps1 = ..\tools\Deploy\Deploy.to.uCommerce.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
