@@ -1,24 +1,30 @@
 syntax: glob
-
-# Visual Studio user files
-*.suo
+*.o
+*.lo
+*.la
+*.al
+.libs
+*.so
+*.so.[0-9]*
+*.a
+*.pyc
+*.pyo
+*.rej
+*~
+#*#
+.#*
+.*.swp
+.DS_Store
+._.DS_Store
+bin
+Bin
+debug
+obj
 *.user
-*.csproj.sitecore
-
-# Visual Studio folders
-bin/
-obj/
-
-# Resharper
+*.suo
+*.tmp
 _ReSharper*
 *.resharper
 *.ReSharper
-
-# Project folders
-webroot/
-
-# Other
-*nrcunch*
 *.orig
-*.tmp
-*.swp
+._*
