@@ -1,5 +1,6 @@
 ﻿using System;
 using SampleApp.Extensions.Model;
+using UCommerce.EntitiesV2.UI.Impl;
 using UCommerce.Pipelines;
 using UCommerce.Pipelines.ViewBuilder;
 
@@ -21,7 +22,7 @@ namespace SampleApp.Extensions.UI.Tab
 			var viewSection = new ViewSection
 			{
 				View = "../Apps/SampleApp/About.ascx",
-				ResourceKey = "",
+				DisplayName = "About, DisplayName property",
 				MultiLingual = false,
 				HasSaveButton = false,
 				HasDeleteButton = false
