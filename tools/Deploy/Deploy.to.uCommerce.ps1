@@ -5,25 +5,25 @@ Param(
 
 function GetDeploymentDirectories {
   return @(
-	"C:\inetpub\U6Dev\Website",
-	"c:\inetpub\U7Dev\Website",
+    "C:\inetpub\U6Dev\Website",
+    "c:\inetpub\U7Dev\Website",
     "C:\inetpub\SC8\Website"
   )
 }
 
 function GetAppName {
-  return "SampleApp";  
+  $scriptPath = Get-ScriptDirectory;
+  $nuspecFile = "$scriptPath\..\NuGet\App.Manifest.nuspec";
+
+  [xml]$fileContents = Get-Content -Path $nuspecFile
+  return $fileContents.package.metadata.id;
 }
 
-function FileExtensionBlackList {
-  return "*.cd", "*.dll", "*.xml", "*.pdb", "*.pdb", "*.designer.cs";  
+function Get-ScriptDirectory { 
+    Split-Path -parent $PSCommandPath 
 }
 
-function DllExtensionBlackList {
-  return "UCommerce.*";  
-}
-
-function LocateAppFolder($deployment_directory){
+function LocateAppsFolder($deployment_directory){
 	$folderName = "Apps"
 	$pathToAppsFolders = (gci -path $deployment_directory -filter $foldername -Recurse).FullName
 		
@@ -35,63 +35,27 @@ function LocateAppFolder($deployment_directory){
     }	 
 }
 
-function GetFilesToCopy($path){
-	return Get-ChildItem $path -name -recurse -include *.* -exclude (FileExtensionBlackList);
-}
-
-function CopyFiles ($appDirectory) {
-	$filesToCopy = GetFilesToCopy($OutPutDir);
-	foreach($fileToCopy in $filesToCopy)
-	{
-		$sourceFile = $OutPutDir + $fileToCopy;
-		$targetFile = $appDirectory + "\" + $fileToCopy;
-		
-		# Create the folder structure and empty destination file,
-		New-Item -ItemType File -Path $targetFile -Force
-		
-		Copy-Item $sourceFile $targetFile -Force
-	}
-}
-
-
-function GetDllesToCopy($path){
-	return Get-ChildItem $path -name -recurse -include *.dll* -exclude (DllExtensionBlackList);
-}
-
-function CopyDllToBin ($appDirectory) {
-	$filesToCopy = GetDllesToCopy($OutPutDir);
-	write-host $filesToCopy;
-	foreach($fileToCopy in $filesToCopy)
-	{
-		$sourceFile = $OutPutDir + $fileToCopy;
-		$targetFile = $appDirectory + "\" + $fileToCopy;		
-		Copy-Item $sourceFile $targetFile -Force
-	}
-}
-
 function Run-It () {
     try {  
+		$scriptPath = Get-ScriptDirectory;
+        Import-Module "$scriptPath\..\psake\4.3.0.0\psake.psm1"
 		$deployment_directories = GetDeploymentDirectories;
 		$appName = GetAppName;      
-		
+
         foreach($deployment_directory in $deployment_directories)
         {
-			write-host 'Deploying app to' . $deployment_directory;
-			$pathToAppsFolder = LocateAppFolder($deployment_directory);
+           $appsFolder = LocateAppsFolder($deployment_directory);
+           $targetDir = "$appsFolder\" + $appName;
+           $properties = @{
+               "TargetDirectory" = $targetDir;
+               "OutPutDir" = $OutPutDir
+           };
+           
+           Invoke-PSake "$ScriptPath\Extract.Files.For.App.ps1" "Run-It" -parameters $properties
 
-			#Creates app directory
-			$appDirectory = $pathToAppsFolder + "\" + $appName;
-			New-Item $appDirectory -type directory -force #-force ignore exception if the directory already exixts. 
-
-			
-			CopyFiles($appDirectory);
-
-			#Delete this section when dlles can be load from apps folder --> (update black list)
-			$pathToBinFolder = $deployment_directory + "\bin";
-			CopyDllToBin($pathToBinFolder);
-
-			write-host 'Deployed app to' + $deployment_directory;
-        }	 
+           #Copy dlles to website\bin
+           Copy-Item "$targetDir\bin\*" "$deployment_directory\bin"
+        }	
     } catch {  
         Write-Error $_.Exception.Message -ErrorAction Stop  
     }
