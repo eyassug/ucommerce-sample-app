@@ -1,10 +1,10 @@
 properties {
   $deployment_directory = $TargetDirectory;
-  $OutPutDir = $OutPutDir;
+  $WorkDictionary = $OutPutDir;
 }
 
 function FileExtensionBlackList {
-  return "*.cd","*.cs", "*.dll", "*.xml", "*.pdb", "*.designer.cs";  
+  return "*.cd","*.cs", "*.dll", "*.xml", "*.pdb", "*.designer.cs", "*.csproj*", "*.cache";  
 }
 
 function DllExtensionBlackList {
@@ -16,10 +16,11 @@ function GetFilesToCopy($path){
 }
 
 function CopyFiles ($appDirectory) {
-	$filesToCopy = GetFilesToCopy($OutPutDir);
+	$filesToCopy = GetFilesToCopy($WorkDictionary);
+	
 	foreach($fileToCopy in $filesToCopy)
 	{
-		$sourceFile = $OutPutDir + "\" + $fileToCopy;
+        $sourceFile = $WorkDictionary + "\" + $fileToCopy;
 		$targetFile = $appDirectory + "\" + $fileToCopy;
 		
 		# Create the folder structure and empty destination file,
@@ -35,23 +36,25 @@ function GetDllesToCopy($path){
 }
 
 function CopyDllToBin ($appDirectory) {
-	$filesToCopy = GetDllesToCopy($OutPutDir);
+	$filesToCopy = GetDllesToCopy($WorkDictionary);
 
 	foreach($fileToCopy in $filesToCopy)
 	{
-		$sourceFile = $OutPutDir + "\" + $fileToCopy;
-		$targetFile = $appDirectory + "\" + $fileToCopy;	
+        if($fileToCopy -notlike '*obj*'){
+		    $sourceFile = $WorkDictionary + "\" + $fileToCopy;
+		    $targetFile = $appDirectory + "\" + $fileToCopy;	
 		
-		# Create the folder structure and empty destination file,
-		New-Item -ItemType File -Path $targetFile -Force	
+		    # Create the folder structure and empty destination file,
+		    New-Item -ItemType File -Path $targetFile -Force	
 		
-		Copy-Item $sourceFile $targetFile -Force
+		    Copy-Item $sourceFile $targetFile -Force
+        }
 	}
 }
 
 task Run-It {
         
-	write-host 'Extract app to' . $deployment_directory;
+	write-host 'Extract app to' + $deployment_directory;
     
     #Creates app directory
     If (!(Test-Path $deployment_directory)) {
@@ -60,8 +63,7 @@ task Run-It {
 	
 	CopyFiles($deployment_directory);
 
-	$pathToBinFolder = $deployment_directory + "\bin";
-	CopyDllToBin($pathToBinFolder);
+	CopyDllToBin($deployment_directory);
     
     write-host 'Extracted app to' + $deployment_directory;   
 }

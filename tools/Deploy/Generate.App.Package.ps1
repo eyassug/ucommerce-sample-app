@@ -4,7 +4,7 @@ Param(
     [string]$TargetDirectory = "C:\tmp\SampleApp",
     
     [Parameter(Mandatory=$False)]
-    [string]$OutPutDir = "C:\Projects\uCommerce Sample App\src\SampleApp.Web\bin"
+    [string]$OutPutDir = "C:\Projects\uCommerce Sample App\src\SampleApp.Web"
 )
 
 function GetScriptDirectory { 
@@ -53,7 +53,7 @@ function Run-It () {
         
         New-Item $pathToTargetLibDir -type directory
         Move-Item $pathToTargetBinDir\*.dll $pathToTargetLibDir
-        Remove-Item $pathToTargetBinDir
+        Remove-Item $pathToTargetBinDir -recurse
 
         #Step 04 pack it up
         MoveNuspecFile;
