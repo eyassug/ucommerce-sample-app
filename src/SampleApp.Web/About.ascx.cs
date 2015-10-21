@@ -22,7 +22,6 @@ namespace SampleApp.Web
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			
 			uCommerceVersionHeader.Visible = _configuration.ShowUCommerceVersion;
 			SchemaVersionHeader.Visible = _configuration.ShowShemaVersion;
 
@@ -31,10 +30,10 @@ namespace SampleApp.Web
 			SchemaVersion.Text = SampleApi.SchemaVersion();
 		}
 
-		private string _name = "About";
+		private string _name = "About, INamed inferface";
 
-		string INamedReadOnly.Name 
-		{ 
+		string INamedReadOnly.Name
+		{
 			get { return _name; }
 		}
 
