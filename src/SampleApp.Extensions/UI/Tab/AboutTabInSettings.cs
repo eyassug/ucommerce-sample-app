@@ -5,6 +5,9 @@ using UCommerce.Pipelines.ViewBuilder;
 
 namespace SampleApp.Extensions.UI.Tab
 {
+	/// <summary>
+	/// A pipeline task that adds a new tab to the setting node in uCommerce
+	/// </summary>
 	public class AboutTabInSettings : IPipelineTask<IPipelineArgs<ViewBuilderRequest, ViewBuilderResponse>>
 	{
 		private readonly TabConfiguration _configuration;
