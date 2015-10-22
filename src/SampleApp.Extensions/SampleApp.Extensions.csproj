@@ -56,8 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\SampleApi.cs" />
+    <Compile Include="Definitions\Product\MergeShoeDefinitionTask.cs" />
+    <Compile Include="Definitions\Product\CreateShoeDefinitionTask.cs" />
+    <Compile Include="Definitions\Product\AddShoeDefinitionTask.cs" />
     <Compile Include="Model\TabConfiguration.cs" />
     <Compile Include="Model\ViewSection.cs" />
+    <Compile Include="Pipelines\Definitions\AddDefinitionPipeline.cs" />
     <Compile Include="Queries\SchemaVersionQuery.cs" />
     <Compile Include="UI\Tab\AboutTabInSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
