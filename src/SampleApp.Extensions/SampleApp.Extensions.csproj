@@ -50,17 +50,21 @@
     <Reference Include="UCommerce.Infrastructure">
       <HintPath>..\..\lib\uCommerce\UCommerce.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="UCommerce.Pipelines">
+      <HintPath>..\..\lib\uCommerce\UCommerce.Pipelines.dll</HintPath>
+    </Reference>
     <Reference Include="UCommerce.Presentation">
       <HintPath>..\..\lib\uCommerce\UCommerce.Presentation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\SampleApi.cs" />
-    <Compile Include="Definitions\Product\MergeShoeDefinitionTask.cs" />
-    <Compile Include="Definitions\Product\CreateShoeDefinitionTask.cs" />
-    <Compile Include="Definitions\Product\AddShoeDefinitionTask.cs" />
+    <Compile Include="Initialize\AddShoeDefinitionPipelineTask.cs" />
+    <Compile Include="Pipelines\ProductDefinition\MergeShoeDefinitionTask.cs" />
+    <Compile Include="Pipelines\ProductDefinition\ModifyShoeDefinitionTask.cs" />
+    <Compile Include="Pipelines\ProductDefinition\AddShoeDefinitionTask.cs" />
     <Compile Include="Model\TabConfiguration.cs" />
-    <Compile Include="Pipelines\Definitions\AddDefinitionPipeline.cs" />
+    <Compile Include="Pipelines\ProductDefinition\AddShoeDefinitionPipeline.cs" />
     <Compile Include="Queries\SchemaVersionQuery.cs" />
     <Compile Include="UI\Tab\AboutTabInSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
