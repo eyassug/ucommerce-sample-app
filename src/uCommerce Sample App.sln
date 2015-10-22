@@ -17,6 +17,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{4CF9F5BF-9DD4-4C03-AA40-1BDC7FF51FD5}"
 	ProjectSection(SolutionItems) = preProject
 		..\tools\NuGet\App.Manifest.nuspec = ..\tools\NuGet\App.Manifest.nuspec
+		..\tools\Deploy\Generate.App.Package.ps1 = ..\tools\Deploy\Generate.App.Package.ps1
 	EndProjectSection
 EndProject
 Global
