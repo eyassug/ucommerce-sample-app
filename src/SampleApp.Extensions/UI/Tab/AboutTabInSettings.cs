@@ -24,7 +24,7 @@ namespace SampleApp.Extensions.UI.Tab
 		public PipelineExecutionResult Execute(SectionGroup sectionGroup)
 		{
 			//Check the view is the one what we want to add our tab to
-			if (!_configuration.ShowTab || !GetViewName(sectionGroup.View as Page).EndsWith("settingsstartpage_aspx")) return PipelineExecutionResult.Success;
+			if (!_configuration.ShowTab || GetViewName(sectionGroup.View as Page) != "settingsstartpage_aspx") return PipelineExecutionResult.Success;
 
 			var section = BuildSection(sectionGroup);
 			sectionGroup.AddSection(section);
@@ -56,7 +56,11 @@ namespace SampleApp.Extensions.UI.Tab
 		private string GetViewName(Page page)
 		{
 			Guard.Against.NullArgument(page);
-			return page.GetType().Name;
+
+			var viewName = page.GetType().Name;
+			string[] NameArray = viewName.Split('_');
+
+			return string.Format("{0}_{1}", NameArray[NameArray.Length - 2], NameArray[NameArray.Length - 1]);
 		}
 
 		private string CreateUniqueControlID(Page page)
