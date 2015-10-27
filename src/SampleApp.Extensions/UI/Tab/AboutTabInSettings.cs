@@ -4,7 +4,6 @@ using SampleApp.Extensions.Model;
 using UCommerce.EntitiesV2;
 using UCommerce.Pipelines;
 using UCommerce.Presentation.UI;
-using UCommerce.Presentation.Views;
 
 namespace SampleApp.Extensions.UI.Tab
 {
@@ -26,10 +25,7 @@ namespace SampleApp.Extensions.UI.Tab
 			//Check the view is the one what we want to add our tab to
 			if (!_configuration.ShowTab || sectionGroup.View.ToString() != "ASP.umbraco_ucommerce_settings_settingsstartpage_aspx") return PipelineExecutionResult.Success;
 
-			//Build section
 			var section = BuildSection(sectionGroup);
-
-			////Add section to the section group
 			sectionGroup.AddSection(section);
 
 			//Makes the new tab the default tab when the settings node is clicked.
@@ -48,11 +44,12 @@ namespace SampleApp.Extensions.UI.Tab
 			};
 
 			var control = sectionGroup.View.LoadControl("../Apps/SampleApp/About.ascx");
+
+			//Get the name of the control if it implements the INamed inferface
 			if (control is INamed)
 				section.Name = (control as INamed).Name;
 
 			section.AddControl(control);
-
 			return section;
 		}
 	}
