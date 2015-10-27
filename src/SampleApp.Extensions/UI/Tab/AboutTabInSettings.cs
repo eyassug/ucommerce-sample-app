@@ -2,6 +2,7 @@
 using System.Web.UI;
 using SampleApp.Extensions.Model;
 using UCommerce.EntitiesV2;
+using UCommerce.Infrastructure;
 using UCommerce.Pipelines;
 using UCommerce.Presentation.UI;
 
@@ -22,6 +23,7 @@ namespace SampleApp.Extensions.UI.Tab
 
 		public PipelineExecutionResult Execute(SectionGroup sectionGroup)
 		{
+			var name = sectionGroup.GetName();
 			//Check the view is the one what we want to add our tab to
 			if (!_configuration.ShowTab || sectionGroup.View.ToString() != "ASP.umbraco_ucommerce_settings_settingsstartpage_aspx") return PipelineExecutionResult.Success;
 
@@ -39,8 +41,7 @@ namespace SampleApp.Extensions.UI.Tab
 			var section = new Section
 			{
 				Name = "About",
-				ID = (sectionGroup.View as Page).ClientID + "_" + Guid.NewGuid(),
-				OriginalName = "About.ascx"
+				ID = CreateUniqueControlID(sectionGroup.View as Page)
 			};
 
 			var control = sectionGroup.View.LoadControl("../Apps/SampleApp/About.ascx");
@@ -51,6 +52,12 @@ namespace SampleApp.Extensions.UI.Tab
 
 			section.AddControl(control);
 			return section;
+		}
+
+		private string CreateUniqueControlID(Page page)
+		{
+			Guard.Against.NullArgument(page);
+			return page.ClientID + "_" + Guid.NewGuid();
 		}
 	}
 }
