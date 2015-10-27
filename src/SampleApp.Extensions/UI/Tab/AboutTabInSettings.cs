@@ -1,14 +1,13 @@
 ﻿using SampleApp.Extensions.Model;
-using UCommerce.EntitiesV2.UI.Impl;
 using UCommerce.Pipelines;
-using UCommerce.Pipelines.ViewBuilder;
+using UCommerce.Presentation.UI;
 
 namespace SampleApp.Extensions.UI.Tab
 {
 	/// <summary>
 	/// A pipeline task that adds a new tab to the setting node in uCommerce
 	/// </summary>
-	public class AboutTabInSettings : IPipelineTask<IPipelineArgs<ViewBuilderRequest, ViewBuilderResponse>>
+	public class AboutTabInSettings : IPipelineTask<SectionGroup>
 	{
 		private readonly TabConfiguration _configuration;
 
@@ -17,30 +16,30 @@ namespace SampleApp.Extensions.UI.Tab
 			_configuration = tabConfiguration;
 		}
 
-		public PipelineExecutionResult Execute(IPipelineArgs<ViewBuilderRequest, ViewBuilderResponse> subject)
+
+		public PipelineExecutionResult Execute(SectionGroup sectionGroup)
 		{
-			// Checks if the view is the one that we want to hook into
-			if (subject.Request.ViewId != "settingsstartpage_aspx" || !_configuration.ShowTab) return PipelineExecutionResult.Success;
+			//Check that we want to hook in
+			if(!_configuration.ShowTab) return PipelineExecutionResult.Success;
 
-			var viewSection = BuildViewSection();
+			//Build section
+			var section = BuildSection();
 
-			subject.Response.ViewSections.Add(viewSection);
+			//Add section to the section group
+			sectionGroup.AddSection(section);
 
 			return PipelineExecutionResult.Success;
 		}
 
-		private ViewSection BuildViewSection()
-		{
-			var viewSection = new ViewSection
-			{
-				View = "../Apps/SampleApp/About.ascx",
-				DisplayName = "About, DisplayName property",
-				MultiLingual = false,
-				HasSaveButton = false,
-				HasDeleteButton = false
-			};
 
-			return viewSection;
+		private Section BuildSection()
+		{
+			//var section = new Section
+			//{
+			//	Name
+			//};
+
+			return null;
 		}
 	}
 }
