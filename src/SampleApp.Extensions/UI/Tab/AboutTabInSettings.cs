@@ -23,9 +23,8 @@ namespace SampleApp.Extensions.UI.Tab
 
 		public PipelineExecutionResult Execute(SectionGroup sectionGroup)
 		{
-			var name = sectionGroup.GetName();
 			//Check the view is the one what we want to add our tab to
-			if (!_configuration.ShowTab || sectionGroup.View.ToString() != "ASP.umbraco_ucommerce_settings_settingsstartpage_aspx") return PipelineExecutionResult.Success;
+			if (!_configuration.ShowTab || !GetViewName(sectionGroup.View as Page).EndsWith("settingsstartpage_aspx")) return PipelineExecutionResult.Success;
 
 			var section = BuildSection(sectionGroup);
 			sectionGroup.AddSection(section);
@@ -52,6 +51,12 @@ namespace SampleApp.Extensions.UI.Tab
 
 			section.AddControl(control);
 			return section;
+		}
+
+		private string GetViewName(Page page)
+		{
+			Guard.Against.NullArgument(page);
+			return page.GetType().Name;
 		}
 
 		private string CreateUniqueControlID(Page page)
