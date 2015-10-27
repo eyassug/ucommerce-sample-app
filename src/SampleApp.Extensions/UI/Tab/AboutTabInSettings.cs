@@ -1,14 +1,18 @@
-﻿using SampleApp.Extensions.Model;
-using UCommerce.EntitiesV2.UI.Impl;
+﻿using System;
+using System.Web.UI;
+using SampleApp.Extensions.Model;
+using UCommerce;
+using UCommerce.EntitiesV2;
+using UCommerce.Infrastructure;
 using UCommerce.Pipelines;
-using UCommerce.Pipelines.ViewBuilder;
+using UCommerce.Presentation.UI;
 
 namespace SampleApp.Extensions.UI.Tab
 {
 	/// <summary>
 	/// A pipeline task that adds a new tab to the setting node in uCommerce
 	/// </summary>
-	public class AboutTabInSettings : IPipelineTask<IPipelineArgs<ViewBuilderRequest, ViewBuilderResponse>>
+	public class AboutTabInSettings : IPipelineTask<SectionGroup>
 	{
 		private readonly TabConfiguration _configuration;
 
@@ -17,30 +21,53 @@ namespace SampleApp.Extensions.UI.Tab
 			_configuration = tabConfiguration;
 		}
 
-		public PipelineExecutionResult Execute(IPipelineArgs<ViewBuilderRequest, ViewBuilderResponse> subject)
+
+		public PipelineExecutionResult Execute(SectionGroup sectionGroup)
 		{
-			// Checks if the view is the one that we want to hook into
-			if (subject.Request.ViewId != "settingsstartpage_aspx" || !_configuration.ShowTab) return PipelineExecutionResult.Success;
+			//Check the view is the one what we want to add our tab to
+			if (!_configuration.ShowTab || GetViewName(sectionGroup.View as Page) != Constants.UI.Views.Roots.Settings) return PipelineExecutionResult.Success;
 
-			var viewSection = BuildViewSection();
+			var section = BuildSection(sectionGroup);
+			sectionGroup.AddSection(section);
 
-			subject.Response.ViewSections.Add(viewSection);
+			//Makes the new tab the default tab when the settings node is clicked.
+			sectionGroup.ActiveTabId = sectionGroup.Sections.IndexOf(section);
 
 			return PipelineExecutionResult.Success;
 		}
 
-		private ViewSection BuildViewSection()
+		private Section BuildSection(SectionGroup sectionGroup)
 		{
-			var viewSection = new ViewSection
+			var section = new Section
 			{
-				View = "../Apps/SampleApp/About.ascx",
-				DisplayName = "About, DisplayName property",
-				MultiLingual = false,
-				HasSaveButton = false,
-				HasDeleteButton = false
+				Name = "About",
+				ID = CreateUniqueControlID(sectionGroup.View as Page)
 			};
 
-			return viewSection;
+			var control = sectionGroup.View.LoadControl("../Apps/SampleApp/About.ascx");
+
+			//Get the name of the control if it implements the INamed inferface
+			if (control is INamed)
+				section.Name = (control as INamed).Name;
+
+			section.AddControl(control);
+			return section;
+		}
+
+		private string GetViewName(Page page)
+		{
+			Guard.Against.NullArgument(page);
+
+			var viewName = page.GetType().Name;
+			string[] NameArray = viewName.Split('_');
+
+			return string.Format("{0}_{1}", NameArray[NameArray.Length - 2], NameArray[NameArray.Length - 1]);
+		}
+
+		private string CreateUniqueControlID(Page page)
+		{
+			Guard.Against.NullArgument(page);
+			return page.ClientID + "_" + Guid.NewGuid();
 		}
 	}
 }
