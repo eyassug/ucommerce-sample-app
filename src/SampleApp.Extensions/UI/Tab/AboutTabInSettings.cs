@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.UI;
 using SampleApp.Extensions.Model;
+using UCommerce;
 using UCommerce.EntitiesV2;
 using UCommerce.Infrastructure;
 using UCommerce.Pipelines;
@@ -24,7 +25,7 @@ namespace SampleApp.Extensions.UI.Tab
 		public PipelineExecutionResult Execute(SectionGroup sectionGroup)
 		{
 			//Check the view is the one what we want to add our tab to
-			if (!_configuration.ShowTab || GetViewName(sectionGroup.View as Page) != "settingsstartpage_aspx") return PipelineExecutionResult.Success;
+			if (!_configuration.ShowTab || GetViewName(sectionGroup.View as Page) != Constants.UI.Views.Roots.Settings) return PipelineExecutionResult.Success;
 
 			var section = BuildSection(sectionGroup);
 			sectionGroup.AddSection(section);
