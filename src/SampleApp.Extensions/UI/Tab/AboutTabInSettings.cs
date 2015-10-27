@@ -1,6 +1,10 @@
-﻿using SampleApp.Extensions.Model;
+﻿using System;
+using System.Web.UI;
+using SampleApp.Extensions.Model;
+using UCommerce.EntitiesV2;
 using UCommerce.Pipelines;
 using UCommerce.Presentation.UI;
+using UCommerce.Presentation.Views;
 
 namespace SampleApp.Extensions.UI.Tab
 {
@@ -19,27 +23,37 @@ namespace SampleApp.Extensions.UI.Tab
 
 		public PipelineExecutionResult Execute(SectionGroup sectionGroup)
 		{
-			//Check that we want to hook in
-			if(!_configuration.ShowTab) return PipelineExecutionResult.Success;
+			//Check the view is the one what we want to add our tab to
+			if (!_configuration.ShowTab || sectionGroup.View.ToString() != "ASP.umbraco_ucommerce_settings_settingsstartpage_aspx") return PipelineExecutionResult.Success;
 
 			//Build section
-			var section = BuildSection();
+			var section = BuildSection(sectionGroup);
 
-			//Add section to the section group
+			////Add section to the section group
 			sectionGroup.AddSection(section);
+
+			//Makes the new tab the default tab when the settings node is clicked.
+			sectionGroup.ActiveTabId = sectionGroup.Sections.IndexOf(section);
 
 			return PipelineExecutionResult.Success;
 		}
 
-
-		private Section BuildSection()
+		private Section BuildSection(SectionGroup sectionGroup)
 		{
-			//var section = new Section
-			//{
-			//	Name
-			//};
+			var section = new Section
+			{
+				Name = "About",
+				ID = (sectionGroup.View as Page).ClientID + "_" + Guid.NewGuid(),
+				OriginalName = "About.ascx"
+			};
 
-			return null;
+			var control = sectionGroup.View.LoadControl("../Apps/SampleApp/About.ascx");
+			if (control is INamed)
+				section.Name = (control as INamed).Name;
+
+			section.AddControl(control);
+
+			return section;
 		}
 	}
 }
