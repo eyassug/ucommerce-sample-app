@@ -30,3 +30,4 @@ _ReSharper*
 ._*
 .FileListAbsolute.txt
 src/.vs/config/applicationhost.config
+package/SampleApp.0.0.0.1.nupkg
