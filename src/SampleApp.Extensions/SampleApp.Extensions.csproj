@@ -60,10 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\SampleApi.cs" />
-    <Compile Include="Initialize\AddShoeDefinitionPipelineTask.cs" />
+    <Compile Include="Pipelines\Initialize\AddShoeDefinitionPipelineTask.cs" />
     <Compile Include="Pipelines\ProductDefinition\MergeShoeDefinitionTask.cs" />
     <Compile Include="Pipelines\ProductDefinition\ModifyShoeDefinitionTask.cs" />
-    <Compile Include="Pipelines\ProductDefinition\AddShoeDefinitionTask.cs" />
+    <Compile Include="Pipelines\ProductDefinition\SaveShoeDefinitionTask.cs" />
     <Compile Include="Model\TabConfiguration.cs" />
     <Compile Include="Pipelines\ProductDefinition\AddShoeDefinitionPipeline.cs" />
     <Compile Include="Queries\SchemaVersionQuery.cs" />

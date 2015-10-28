@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using UCommerce.EntitiesV2;
 using UCommerce.EntitiesV2.Definitions;
 using UCommerce.Extensions;
@@ -14,13 +15,16 @@ namespace SampleApp.Extensions.Pipelines.ProductDefinition
 	/// </summary>
 	public class ModifyShoeDefinitionTask : IPipelineTask<UCommerce.EntitiesV2.ProductDefinition>
 	{
+		private readonly IRepository<DataType> _dataTypeRepository;
+
+		public ModifyShoeDefinitionTask(IRepository<DataType> dataTypeRepository)
+		{
+			_dataTypeRepository = dataTypeRepository;
+		}
+
 		public PipelineExecutionResult Execute(UCommerce.EntitiesV2.ProductDefinition subject)
 		{
 			subject.Name = "Shoe";
-			subject.CreatedOn = DateTime.Now;
-			subject.CreatedBy = "Mads";
-			subject.ModifiedOn = DateTime.Now;
-			subject.ModifiedBy = "Mads";
 
 			var definitionsFields = CreateDefinitionFields();
 			definitionsFields.ForEach(subject.AddProductDefinitionField);
@@ -41,7 +45,7 @@ namespace SampleApp.Extensions.Pipelines.ProductDefinition
 		{
 			var productDefinitionField = new ProductDefinitionField()
 			{
-				DataType = DataType.FirstOrDefault(x => x.DefinitionName == definition.Name),
+				DataType = _dataTypeRepository.Select().FirstOrDefault(x => x.DefinitionName == definition.Name),
 				Name = name,
 				RenderInEditor = true,
 			};

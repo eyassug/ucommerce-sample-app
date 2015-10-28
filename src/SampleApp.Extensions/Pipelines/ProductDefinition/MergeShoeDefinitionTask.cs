@@ -10,9 +10,16 @@ namespace SampleApp.Extensions.Pipelines.ProductDefinition
 	/// </summary>
 	public class MergeShoeDefinitionTask : IPipelineTask<UCommerce.EntitiesV2.ProductDefinition>
 	{
+		private readonly IRepository<UCommerce.EntitiesV2.ProductDefinition> _productDefinitionRepository;
+
+		public MergeShoeDefinitionTask(IRepository<UCommerce.EntitiesV2.ProductDefinition> productDefinitionRepository)
+		{
+			_productDefinitionRepository = productDefinitionRepository;
+		}
+
 		public PipelineExecutionResult Execute(UCommerce.EntitiesV2.ProductDefinition subject)
 		{
-			var existingShoeDefinition = UCommerce.EntitiesV2.ProductDefinition.FirstOrDefault(x => x.Name == subject.Name);
+			var existingShoeDefinition = _productDefinitionRepository.Select().FirstOrDefault(x => x.Name == subject.Name);
 
 			if (existingShoeDefinition == null) return PipelineExecutionResult.Success;
 
