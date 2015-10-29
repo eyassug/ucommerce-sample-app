@@ -34,11 +34,11 @@ namespace SampleApp.Extensions.UI.Button
 		public ImageButton CreateClientSideButton()
 		{
 			var clientSideButton = new ImageButton();
-			clientSideButton.ImageUrl = Resources.Images.Menu.Delete;
+			clientSideButton.ImageUrl = "/umbraco/ucommerce/Apps/SampleApp/Media/uCommerce-logo-symbol-small.png";
 			clientSideButton.CausesValidation = false;
 
 			var translatedConfirmText = _resourceManager.GetLocalizedText("SampleApp", "confirmClientSideButton");
-			clientSideButton.Attributes.Add("onclick", "if (confirm('" + translatedConfirmText + "')) { return true; } else return false;");
+			clientSideButton.Attributes.Add("onclick", "if (confirm('" + translatedConfirmText + "')) { window.location.replace('/'); } return false;");
 			
 			return clientSideButton;
 		}
