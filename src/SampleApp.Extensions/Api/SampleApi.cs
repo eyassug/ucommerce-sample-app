@@ -18,9 +18,9 @@ namespace SampleApp.Extensions.Api
 
 		public static string SchemaVersion()
 		{
-			var _sessionProvider = ObjectFactory.Instance.Resolve<ISessionProvider>();
+			var sessionProvider = ObjectFactory.Instance.Resolve<ISessionProvider>();
 			var schemaVersionQuery = new SchemaVersionQuery();
-			using (var session = _sessionProvider.GetSession())
+			using (var session = sessionProvider.GetSession())
 			{
 				return schemaVersionQuery.Execute(session).FirstOrDefault().ToString();
 			}
