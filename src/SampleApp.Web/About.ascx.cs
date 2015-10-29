@@ -41,7 +41,7 @@ namespace SampleApp.Web
 			SchemaVersion.Text = SampleApi.SchemaVersion();
 		}
 
-		private string _name = "About, INamed inferface";
+		private string _name = "About";
 
 		/// <summary>
 		/// Used the get the title of tab
