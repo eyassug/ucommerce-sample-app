@@ -41,7 +41,7 @@ namespace SampleApp.Extensions.UI.Tab
 				ID = sectionGroup.CreateUniqueControlId()
 			};
 
-			var control = sectionGroup.View.LoadControl("Apps/SampleApp/About.ascx");
+			var control = sectionGroup.View.LoadControl("/Apps/SampleApp/About.ascx");
 
 			//Get the name of the control if it implements the INamed inferface
 			if (control is INamed)
