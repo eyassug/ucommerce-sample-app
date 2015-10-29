@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.UI.WebControls;
 using UCommerce.Infrastructure;
+using UCommerce.Infrastructure.Globalization;
 using UCommerce.Pipelines;
 using UCommerce.Presentation;
 using UCommerce.Presentation.UI;
@@ -15,6 +16,15 @@ namespace SampleApp.Extensions.UI.Button
 	/// </summary>
 	public class AddServerSideButtonToSettingsSearchTask : IPipelineTask<SectionGroup>
 	{
+		private readonly ScratchIndexer _scratchIndexer;
+		private readonly IResourceManager _resourceManager;
+
+		public AddServerSideButtonToSettingsSearchTask(ScratchIndexer scratchIndexer, IResourceManager resourceManager)
+		{
+			_scratchIndexer = scratchIndexer;
+			_resourceManager = resourceManager;
+		}
+
 		public PipelineExecutionResult Execute(SectionGroup subject)
 		{
 			//Finds the right section by filtering on Name and OriginalName 
@@ -32,15 +42,17 @@ namespace SampleApp.Extensions.UI.Button
 			var serverSideButton = new ImageButton();
 			serverSideButton.ImageUrl = Resources.Images.Menu.Sort;
 			serverSideButton.CausesValidation = false;
-			serverSideButton.ToolTip = "Index everything from scratch";
-			serverSideButton.Attributes.Add("onclick", "if (confirm('Are you sure you want to index everything from scratch?')) { return true; } else return false;");
+
+			var translatedConfirmText = _resourceManager.GetLocalizedText("SampleApp", "confirmScratchIndexing");
+			serverSideButton.Attributes.Add("onclick", "if (confirm('" + translatedConfirmText + "')) { return true; } else return false;");
+
 			serverSideButton.Click += IndexEverythingFromSratchMethod;
 			return serverSideButton;
 		}
 
 		protected void IndexEverythingFromSratchMethod(object sender, EventArgs e)
 		{
-			ObjectFactory.Instance.Resolve<ScratchIndexer>().Index();
+			_scratchIndexer.Index();
 		}
 	}
 }
