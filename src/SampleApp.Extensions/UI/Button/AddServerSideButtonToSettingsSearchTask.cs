@@ -52,7 +52,7 @@ namespace SampleApp.Extensions.UI.Button
 
 		protected void IndexEverythingFromSratchMethod(object sender, EventArgs e)
 		{
-			_scratchIndexer.Index();
+			_scratchIndexer.Index();		
 		}
 	}
 }
