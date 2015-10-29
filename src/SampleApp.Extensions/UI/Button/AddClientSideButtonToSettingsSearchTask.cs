@@ -40,7 +40,7 @@ namespace SampleApp.Extensions.UI.Button
 		{
 			var clientSideButton = new ImageButton();
 
-			clientSideButton.ImageUrl = _appPathService.GetAppPath("Apps/SampleApp/Media/uCommerce-logo-symbol-small.png");
+			clientSideButton.ImageUrl = _appPathService.GetAppPath("/Apps/SampleApp/Media/uCommerce-logo-symbol-small.png");
 			clientSideButton.CausesValidation = false;
 
 			var translatedConfirmText = _resourceManager.GetLocalizedText("SampleApp", "confirmClientSideButton");
