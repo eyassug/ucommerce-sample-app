@@ -67,6 +67,8 @@
     <Compile Include="Model\TabConfiguration.cs" />
     <Compile Include="Pipelines\ProductDefinition\AddShoeDefinitionPipeline.cs" />
     <Compile Include="Queries\SchemaVersionQuery.cs" />
+    <Compile Include="UI\Button\AddClientSideButtonToSettingsSearchTask.cs" />
+    <Compile Include="UI\Button\AddServerSideButtonToSettingsSearchTask.cs" />
     <Compile Include="UI\Tab\AboutTabInSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Tree\AboutNodeProvider.cs" />
