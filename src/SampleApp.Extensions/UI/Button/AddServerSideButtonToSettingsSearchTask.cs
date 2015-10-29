@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.UI.WebControls;
-using UCommerce.Infrastructure;
+using UCommerce;
 using UCommerce.Infrastructure.Globalization;
 using UCommerce.Pipelines;
 using UCommerce.Presentation;
@@ -27,7 +27,8 @@ namespace SampleApp.Extensions.UI.Button
 
 		public PipelineExecutionResult Execute(SectionGroup subject)
 		{
-			//Finds the right section by filtering on Name and OriginalName 
+			if (subject.GetViewName() != Constants.UI.Pages.Settings.Search) return PipelineExecutionResult.Success;
+
 			var section = subject.Sections.FirstOrDefault(s => s.Name == "Common" && s.OriginalName == "IndexFromScratch.ascx");
 
 			if (section == null) return PipelineExecutionResult.Success;
