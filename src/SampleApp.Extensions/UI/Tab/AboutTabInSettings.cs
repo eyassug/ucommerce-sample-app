@@ -9,6 +9,9 @@ namespace SampleApp.Extensions.UI.Tab
 	/// <summary>
 	/// A pipeline task that adds a new tab to the setting node in uCommerce
 	/// </summary>
+	/// <remarks>
+	/// Used the tabConfiguration to determine if the tab should be displayed. 
+	/// </remarks>
 	public class AboutTabInSettings : IPipelineTask<SectionGroup>
 	{
 		private readonly TabConfiguration _configuration;
@@ -27,7 +30,7 @@ namespace SampleApp.Extensions.UI.Tab
 			var section = BuildSection(sectionGroup);
 			sectionGroup.AddSection(section);
 
-			//Makes the new tab the default tab when the settings node is clicked
+			//Sets the new tab as default tab when the settings node is clicked
 			sectionGroup.ActiveTabId = sectionGroup.Sections.IndexOf(section);
 
 			return PipelineExecutionResult.Success;

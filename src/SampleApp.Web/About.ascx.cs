@@ -8,11 +8,12 @@ using UCommerce.Infrastructure;
 namespace SampleApp.Web
 {
 	/// <summary>
-	/// User control that controls what content to show on the tab
+	/// Resposible for getting the content for the tab 
 	/// </summary>
 	/// <remarks>
+	/// Injects a tab configuration to determine what content to display. 
 	/// Implements the INamed interface so uCommerce can get the title of tab.
-	///  </remarks>
+	/// </remarks>
 	public partial class AboutUserControl : UserControl, INamed
 	{
 		private readonly TabConfiguration _configuration;
@@ -27,7 +28,8 @@ namespace SampleApp.Web
 		}
 
 		/// <summary>
-		/// Uses the TabConfiguration to determine what to show and loads the uCommerce version and the SchemaVersion 
+		/// Uses the TabConfiguration to determine what to show 
+		/// Loads the uCommerce version and the SchemaVersion.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -44,7 +46,7 @@ namespace SampleApp.Web
 		private string _name = "About";
 
 		/// <summary>
-		/// Used the get the title of tab
+		/// Get the title of tab.
 		/// </summary>
 		string INamedReadOnly.Name
 		{
@@ -52,7 +54,7 @@ namespace SampleApp.Web
 		}
 
 		/// <summary>
-		/// Used the get the title of tab
+		/// Get or Set the title of tab.
 		/// </summary>
 		string INamed.Name
 		{

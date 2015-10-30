@@ -24,7 +24,7 @@ namespace SampleApp.Extensions.Api
 			//Disposing the session here will cause trouble as lazy loading for all entities will then be broken.
 			var session = sessionProvider.GetSession();
 
-			return new SchemaVersionQuery().Execute(session).ToString();
+			return new SchemaVersionQuery().Execute(session).FirstOrDefault().ToString();
 
 		}
 	}
