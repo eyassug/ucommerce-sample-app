@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.UI.WebControls;
 using UCommerce;
+using UCommerce.Infrastructure.Globalization;
 using UCommerce.Infrastructure.Runtime;
 using UCommerce.Pipelines;
 using UCommerce.Presentation.UI;
@@ -16,13 +17,12 @@ namespace SampleApp.Extensions.UI.Button
 	/// </remarks>
 	public class AddClientSideButtonToSettingsSearchTask : IPipelineTask<SectionGroup>
 	{
+		private readonly IResourceManager _resourceManager;
 		private readonly IPathService _pathService;
-		private readonly IAppPathService _appPathService;
-
-		public AddClientSideButtonToSettingsSearchTask(IResourceManager resourceManager, IAppPathService appPathService)
+		public AddClientSideButtonToSettingsSearchTask(IResourceManager resourceManager, IPathService appPathService)
 		{
 			_resourceManager = resourceManager;
-			_appPathService = appPathService;
+			_pathService = appPathService;
 		}
 
 		public PipelineExecutionResult Execute(SectionGroup subject)

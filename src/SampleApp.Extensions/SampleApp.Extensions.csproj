@@ -67,7 +67,7 @@
     <Compile Include="Globalization\SampleApp.Designer.cs" />
     <Compile Include="Globalization\SampleApp.sv.Designer.cs" />
     <Compile Include="Globalization\SampleAppResourceManager.cs" />
-    <Compile Include="Pipelines\Initialize\AddShoeDefinitionPipelineTask.cs" />
+    <Compile Include="Pipelines\Initialize\ExecuteAddShoeDefinitionPipelineTask.cs" />
     <Compile Include="Pipelines\ProductDefinition\MergeShoeDefinitionTask.cs" />
     <Compile Include="Pipelines\ProductDefinition\ModifyShoeDefinitionTask.cs" />
     <Compile Include="Pipelines\ProductDefinition\SaveShoeDefinitionTask.cs" />
