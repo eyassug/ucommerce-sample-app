@@ -17,10 +17,12 @@ namespace SampleApp.Extensions.UI.Button
 	public class AddServerSideButtonToSettingsSearchTask : IPipelineTask<SectionGroup>
 	{
 		private readonly ScratchIndexer _scratchIndexer;
+		private readonly IResourceManager _resourceManager;
 
-		public AddServerSideButtonToSettingsSearchTask(ScratchIndexer scratchIndexer)
+		public AddServerSideButtonToSettingsSearchTask(ScratchIndexer scratchIndexer, IResourceManager resourceManager)
 		{
 			_scratchIndexer = scratchIndexer;
+			_resourceManager = resourceManager;
 		}
 
 		public PipelineExecutionResult Execute(SectionGroup subject)
@@ -42,7 +44,8 @@ namespace SampleApp.Extensions.UI.Button
 			serverSideButton.ImageUrl = Resources.Images.Menu.Sort;
 			serverSideButton.CausesValidation = false;
 
-			serverSideButton.Attributes.Add("onclick", "if (confirm('Are you sure you want to index everything from scratch?')) { return true; } else return false;");
+			var translatedConfirmText = _resourceManager.GetLocalizedText("SampleApp", "confirmScratchIndexing");
+			serverSideButton.Attributes.Add("onclick", "if (confirm('" + translatedConfirmText + "')) { return true; } else return false;");
 
 			serverSideButton.Click += IndexEverythingFromSratchMethod;
 			return serverSideButton;
