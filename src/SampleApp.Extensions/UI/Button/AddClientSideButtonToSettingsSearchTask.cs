@@ -13,10 +13,12 @@ namespace SampleApp.Extensions.UI.Button
 	/// </summary>
 	public class AddClientSideButtonToSettingsSearchTask : IPipelineTask<SectionGroup>
 	{
+		private readonly IResourceManager _resourceManager;
 		private readonly IAppPathService _appPathService;
 
-		public AddClientSideButtonToSettingsSearchTask(IAppPathService appPathService)
+		public AddClientSideButtonToSettingsSearchTask(IResourceManager resourceManager, IAppPathService appPathService)
 		{
+			_resourceManager = resourceManager;
 			_appPathService = appPathService;
 		}
 
@@ -41,7 +43,8 @@ namespace SampleApp.Extensions.UI.Button
 			clientSideButton.ImageUrl = _appPathService.GetAppPath("/Apps/SampleApp/Media/uCommerce-logo-symbol-small.png");
 			clientSideButton.CausesValidation = false;
 
-			clientSideButton.Attributes.Add("onclick", "if (confirm('Are you sure you want to show your site?')) { window.location.replace('/'); } return false;");
+			var translatedConfirmText = _resourceManager.GetLocalizedText("SampleApp", "confirmClientSideButton");
+			clientSideButton.Attributes.Add("onclick", "if (confirm('" + translatedConfirmText + "')) { window.location.replace('/'); } return false;");
 			
 			return clientSideButton;
 		}
