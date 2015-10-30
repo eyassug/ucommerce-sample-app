@@ -1,8 +1,7 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.UI.WebControls;
 using UCommerce;
-using UCommerce.Infrastructure.PathLocalizator;
+using UCommerce.Infrastructure.Runtime;
 using UCommerce.Pipelines;
 using UCommerce.Presentation.UI;
 
