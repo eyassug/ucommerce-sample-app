@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.UI;
 using SampleApp.Extensions.Api;
-using SampleApp.Extensions.Model;
+using SampleApp.Extensions.Configuration;
 using UCommerce.EntitiesV2;
 using UCommerce.Infrastructure;
 
