@@ -1,4 +1,4 @@
-﻿namespace SampleApp.Extensions.Model
+﻿namespace SampleApp.Extensions.Configuration
 {
 	/// <summary>
 	/// This is an example on how you can create configuration component that you can configure in the castle windsors config.
