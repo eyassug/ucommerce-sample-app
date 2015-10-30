@@ -1,9 +1,6 @@
-﻿using System;
-using System.Web.UI;
-using SampleApp.Extensions.Model;
+﻿using SampleApp.Extensions.Model;
 using UCommerce;
 using UCommerce.EntitiesV2;
-using UCommerce.Infrastructure;
 using UCommerce.Pipelines;
 using UCommerce.Presentation.UI;
 
@@ -24,13 +21,13 @@ namespace SampleApp.Extensions.UI.Tab
 
 		public PipelineExecutionResult Execute(SectionGroup sectionGroup)
 		{
-			//Check the view is the one what we want to add our tab to
-			if (!_configuration.ShowTab || GetViewName(sectionGroup.View as Page) != Constants.UI.Views.Roots.Settings) return PipelineExecutionResult.Success;
+			//If the view is not the one that we want to hook into, then do nothing
+			if (!_configuration.ShowTab || sectionGroup.GetViewName() != Constants.UI.Pages.Roots.Settings) return PipelineExecutionResult.Success;
 
 			var section = BuildSection(sectionGroup);
 			sectionGroup.AddSection(section);
 
-			//Makes the new tab the default tab when the settings node is clicked.
+			//Makes the new tab the default tab when the settings node is clicked
 			sectionGroup.ActiveTabId = sectionGroup.Sections.IndexOf(section);
 
 			return PipelineExecutionResult.Success;
@@ -41,10 +38,10 @@ namespace SampleApp.Extensions.UI.Tab
 			var section = new Section
 			{
 				Name = "About",
-				ID = CreateUniqueControlID(sectionGroup.View as Page)
+				ID = sectionGroup.CreateUniqueControlId()
 			};
 
-			var control = sectionGroup.View.LoadControl("../Apps/SampleApp/About.ascx");
+			var control = sectionGroup.View.LoadControl("/Apps/SampleApp/About.ascx");
 
 			//Get the name of the control if it implements the INamed inferface
 			if (control is INamed)
@@ -52,22 +49,6 @@ namespace SampleApp.Extensions.UI.Tab
 
 			section.AddControl(control);
 			return section;
-		}
-
-		private string GetViewName(Page page)
-		{
-			Guard.Against.NullArgument(page);
-
-			var viewName = page.GetType().Name;
-			string[] NameArray = viewName.Split('_');
-
-			return string.Format("{0}_{1}", NameArray[NameArray.Length - 2], NameArray[NameArray.Length - 1]);
-		}
-
-		private string CreateUniqueControlID(Page page)
-		{
-			Guard.Against.NullArgument(page);
-			return page.ClientID + "_" + Guid.NewGuid();
 		}
 	}
 }

@@ -4,7 +4,7 @@ Param(
     [string]$TargetDirectory = "C:\tmp\SampleApp",
     
     [Parameter(Mandatory=$False)]
-    [string]$OutPutDir = "C:\Projects\uCommerce Sample App\src\SampleApp.Web"
+    [string]$SourceDirectory = "C:\Projects\uCommerce Sample App\src\SampleApp.Web"
 )
 
 function GetScriptDirectory { 
@@ -42,7 +42,7 @@ function Run-It () {
         #Step 02 Extract files
         $extractProperties = @{
           "TargetDirectory" = $TargetDirectory + "\Content";
-          "OutPutDir" = $OutPutDir;
+          "SourceDirectory" = $SourceDirectory;
         };
 
         Invoke-PSake "$ScriptPath\Extract.Files.For.App.ps1" "Run-It" -parameters $extractProperties
