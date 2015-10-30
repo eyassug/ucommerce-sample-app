@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using UCommerce.EntitiesV2;
+using UCommerce.EntitiesV2.Definitions;
 using UCommerce.Pipelines;
 
 namespace SampleApp.Extensions.Pipelines.ProductDefinition
@@ -11,10 +12,13 @@ namespace SampleApp.Extensions.Pipelines.ProductDefinition
 	public class MergeShoeDefinitionTask : IPipelineTask<UCommerce.EntitiesV2.ProductDefinition>
 	{
 		private readonly IRepository<UCommerce.EntitiesV2.ProductDefinition> _productDefinitionRepository;
+		private readonly IPipeline<IDefinition> _saveDefinitionPipeline;
 
-		public MergeShoeDefinitionTask(IRepository<UCommerce.EntitiesV2.ProductDefinition> productDefinitionRepository)
+		public MergeShoeDefinitionTask(IRepository<UCommerce.EntitiesV2.ProductDefinition> productDefinitionRepository,
+			IPipeline<IDefinition> saveDefinitionPipeline)
 		{
 			_productDefinitionRepository = productDefinitionRepository;
+			_saveDefinitionPipeline = saveDefinitionPipeline;
 		}
 
 		public PipelineExecutionResult Execute(UCommerce.EntitiesV2.ProductDefinition subject)
@@ -25,7 +29,7 @@ namespace SampleApp.Extensions.Pipelines.ProductDefinition
 
 			MergeProductDefinitionFields(existingShoeDefinition, subject);
 
-			existingShoeDefinition.Save();
+			_saveDefinitionPipeline.Execute(existingShoeDefinition);
 
 			return PipelineExecutionResult.Success;
 		}
