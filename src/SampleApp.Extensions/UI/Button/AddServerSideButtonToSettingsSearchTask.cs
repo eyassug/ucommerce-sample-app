@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.UI.WebControls;
 using UCommerce;
+using UCommerce.Infrastructure.Globalization;
 using UCommerce.Pipelines;
 using UCommerce.Presentation;
 using UCommerce.Presentation.UI;

@@ -5,7 +5,7 @@ Param(
 
 function GetDeploymentDirectories {
   return @(
-    "C:\Path\To\Your\Website",
+	"C:\Path\To\Your\Website"
   )
 }
 
@@ -50,9 +50,9 @@ function Run-It () {
            };
            
            Invoke-PSake "$ScriptPath\Extract.Files.For.App.ps1" "Run-It" -parameters $properties
-
+		   
 		   #Copy dlles to website\bin
-	       Copy-Item "$targetDir\bin\*" "$deployment_directory\bin" -Force	
+		   Copy-Item "$targetDir\bin\*" "$deployment_directory\bin" -Force	
         }	
     } catch {  
         Write-Error $_.Exception.Message -ErrorAction Stop  
