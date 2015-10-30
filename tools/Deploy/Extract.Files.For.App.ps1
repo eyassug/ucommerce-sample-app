@@ -1,6 +1,6 @@
 properties {
   $deployment_directory = $TargetDirectory;
-  $WorkDictionary = $OutPutDir;
+  $WorkDictionary = $SourceDirectory;
 }
 
 function FileExtensionBlackList {

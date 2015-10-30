@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UCommerce;
 using UCommerce.Tree;
 using UCommerce.Tree.Impl;
 
@@ -19,8 +20,11 @@ namespace SampleApp.Extensions.UI.Tree
 		private readonly IList<string> _supportTypes;
 
 		/// <summary>
-		/// 
+		/// Constructs a new AboutNodeProvider instance.
 		/// </summary>
+		/// <remarks>
+		/// For a list of default nodeType values you can pass to "supportTypes", please <see cref="Constants.DataProvider.NodeType"/>
+		/// </remarks>
 		public AboutNodeProvider(string nodeName, IList<string> supportTypes)
 		{
 			_nodeName = nodeName;
