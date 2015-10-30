@@ -1,4 +1,4 @@
-﻿using SampleApp.Extensions.Model;
+﻿using SampleApp.Extensions.Configuration;
 using UCommerce;
 using UCommerce.EntitiesV2;
 using UCommerce.Pipelines;
