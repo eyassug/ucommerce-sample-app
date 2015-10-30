@@ -17,10 +17,12 @@ namespace SampleApp.Extensions.UI.Button
 	public class AddClientSideButtonToSettingsSearchTask : IPipelineTask<SectionGroup>
 	{
 		private readonly IPathService _pathService;
+		private readonly IAppPathService _appPathService;
 
-		public AddClientSideButtonToSettingsSearchTask(IPathService pathService)
+		public AddClientSideButtonToSettingsSearchTask(IResourceManager resourceManager, IAppPathService appPathService)
 		{
-			_pathService = pathService;
+			_resourceManager = resourceManager;
+			_appPathService = appPathService;
 		}
 
 		public PipelineExecutionResult Execute(SectionGroup subject)
@@ -46,7 +48,8 @@ namespace SampleApp.Extensions.UI.Button
 			clientSideButton.CausesValidation = false;
 
 			//The client side command which executes on right click. 
-			clientSideButton.Attributes.Add("onclick", "if (confirm('Are you sure you want to show your site?')) { window.location.replace('/'); } return false;");
+			var translatedConfirmText = _resourceManager.GetLocalizedText("SampleApp", "confirmClientSideButton");
+			clientSideButton.Attributes.Add("onclick", "if (confirm('" + translatedConfirmText + "')) { window.location.replace('/'); } return false;");
 			
 			return clientSideButton;
 		}
