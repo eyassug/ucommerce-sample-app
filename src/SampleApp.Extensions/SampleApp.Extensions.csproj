@@ -82,7 +82,7 @@
     <Compile Include="Pipelines\ProductDefinition\MergeShoeDefinitionTask.cs" />
     <Compile Include="Pipelines\ProductDefinition\ModifyShoeDefinitionTask.cs" />
     <Compile Include="Pipelines\ProductDefinition\SaveShoeDefinitionTask.cs" />
-    <Compile Include="Model\TabConfiguration.cs" />
+    <Compile Include="Configuration\TabConfiguration.cs" />
     <Compile Include="Pipelines\ProductDefinition\AddShoeDefinitionPipeline.cs" />
     <Compile Include="Queries\SchemaVersionQuery.cs" />
     <Compile Include="Globalization\SampleApp.Designer.cs">
