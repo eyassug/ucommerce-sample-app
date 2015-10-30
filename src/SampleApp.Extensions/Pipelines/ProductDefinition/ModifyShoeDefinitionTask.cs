@@ -26,13 +26,13 @@ namespace SampleApp.Extensions.Pipelines.ProductDefinition
 		{
 			subject.Name = "Shoe";
 
-			var definitionsFields = CreateDefinitionFields();
+			var definitionsFields = CreateProductDefinitionFields();
 			definitionsFields.ForEach(subject.AddProductDefinitionField);
 			
 			return PipelineExecutionResult.Success;
 		}
 
-		private IEnumerable<ProductDefinitionField> CreateDefinitionFields()
+		private IEnumerable<ProductDefinitionField> CreateProductDefinitionFields()
 		{
 			return new List<ProductDefinitionField>
 			{
@@ -56,6 +56,11 @@ namespace SampleApp.Extensions.Pipelines.ProductDefinition
 			return productDefinitionField;
 		}
 
+		/// <summary>
+		/// Creates multilingual descriptions for the product definition field. 
+		/// </summary>
+		/// <param name="displayName"></param>
+		/// <returns></returns>
 		private IEnumerable<ProductDefinitionFieldDescription> CreateDefinitionFieldsDescriptions(string displayName)
 		{
 			return new Collection<ProductDefinitionFieldDescription>

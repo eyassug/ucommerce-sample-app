@@ -46,7 +46,6 @@ namespace SampleApp.Extensions.UI.Tree
             // In this case we do not need the detailed context to generate the About
             // node as the Supports method has previously qualified this node provider
             // for the specific area in the tree to hook into.
-
 			return new List<ITreeNodeContent>
 			{
 				new TreeNodeContent("version", -1)
