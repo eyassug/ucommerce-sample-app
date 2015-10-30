@@ -1,13 +1,13 @@
 Param(
     [Parameter(Mandatory=$True)]
-    [string]$OutPutDir = ""
+    [string]$SourceDirectory = ""
 )
 
 function GetDeploymentDirectories {
   return @(
-    "C:\inetpub\U6Dev\Website",
+     "C:\inetpub\U6Dev\Website",
     "C:\inetpub\U7Dev\Website",
-    "C:\inetpub\SC8\Website"
+   "C:\inetpub\SC8\Website"
   )
 }
 
@@ -48,7 +48,7 @@ function Run-It () {
            $targetDir = "$appsFolder\" + $appName;
            $properties = @{
                "TargetDirectory" = $targetDir;
-               "OutPutDir" = $OutPutDir
+               "SourceDirectory" = $SourceDirectory
            };
            
            Invoke-PSake "$ScriptPath\Extract.Files.For.App.ps1" "Run-It" -parameters $properties
