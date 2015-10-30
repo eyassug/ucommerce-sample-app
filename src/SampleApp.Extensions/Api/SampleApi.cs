@@ -19,11 +19,13 @@ namespace SampleApp.Extensions.Api
 		public static string SchemaVersion()
 		{
 			var _sessionProvider = ObjectFactory.Instance.Resolve<ISessionProvider>();
-			var schemaVersionQuery = new SchemaVersionQuery();
-			using (var session = _sessionProvider.GetSession())
-			{
-				return schemaVersionQuery.Execute(session).FirstOrDefault().ToString();
-			}
+			
+			//Don't use the using(var session = _sessionProvider.GetSession()) pattern as the session will be disposed at the end of the http request AND
+			//Disposing the session here will cause trouble as lazy loading for all entities will then be broken.
+			var session = _sessionProvider.GetSession();
+
+			return new SchemaVersionQuery().Execute(session).ToString();
+
 		}
 	}
 }
