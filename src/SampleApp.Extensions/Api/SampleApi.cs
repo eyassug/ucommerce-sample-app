@@ -22,7 +22,7 @@ namespace SampleApp.Extensions.Api
 			
 			//Don't use the using(var session = _sessionProvider.GetSession()) pattern as the session will be disposed at the end of the http request AND
 			//Disposing the session here will cause trouble as lazy loading for all entities will then be broken.
-			var session = _sessionProvider.GetSession();
+			var session = sessionProvider.GetSession();
 
 			return new SchemaVersionQuery().Execute(session).ToString();
 
