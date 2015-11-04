@@ -27,7 +27,7 @@ namespace SampleApp.Extensions.Globalization
 		/// <returns></returns>
 		public string GetLocalizedText(CultureInfo culture, string resource, string key)
 		{
-			string resourceObject = new ResourceManager("SampleApp.Extensions.Globalization." + resource, Assembly.Load("SampleApp.Extensions")).GetString(key, culture);
+			string resourceObject = new ResourceManager("SampleApp.Extensions.Globalization." + resource, this.GetType().Assembly).GetString(key, culture);
 
 			if (resourceObject == null)
 				return string.Format("[{0}]", key);
