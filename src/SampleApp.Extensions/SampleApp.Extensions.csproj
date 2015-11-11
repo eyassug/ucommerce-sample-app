@@ -62,6 +62,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\SampleApi.cs" />
+    <Compile Include="Globalization\SampleApp.da.Designer.cs" />
+    <Compile Include="Globalization\SampleApp.de.Designer.cs" />
+    <Compile Include="Globalization\SampleApp.Designer.cs" />
+    <Compile Include="Globalization\SampleApp.sv.Designer.cs" />
+    <Compile Include="Globalization\SampleAppResourceManager.cs" />
     <Compile Include="Pipelines\Initialize\ExecuteAddShoeDefinitionPipelineTask.cs" />
     <Compile Include="Pipelines\ProductDefinition\MergeShoeDefinitionTask.cs" />
     <Compile Include="Pipelines\ProductDefinition\ModifyShoeDefinitionTask.cs" />
@@ -77,6 +82,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Globalization\SampleApp.da.resx" />
+    <EmbeddedResource Include="Globalization\SampleApp.de.resx" />
+    <EmbeddedResource Include="Globalization\SampleApp.resx" />
+    <EmbeddedResource Include="Globalization\SampleApp.sv.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

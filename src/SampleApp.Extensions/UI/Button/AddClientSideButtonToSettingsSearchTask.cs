@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.UI.WebControls;
 using UCommerce;
+using UCommerce.Infrastructure.Globalization;
 using UCommerce.Infrastructure.Runtime;
 using UCommerce.Pipelines;
 using UCommerce.Presentation.UI;
@@ -16,11 +17,12 @@ namespace SampleApp.Extensions.UI.Button
 	/// </remarks>
 	public class AddClientSideButtonToSettingsSearchTask : IPipelineTask<SectionGroup>
 	{
+		private readonly IResourceManager _resourceManager;
 		private readonly IPathService _pathService;
-
-		public AddClientSideButtonToSettingsSearchTask(IPathService pathService)
+		public AddClientSideButtonToSettingsSearchTask(IResourceManager resourceManager, IPathService appPathService)
 		{
-			_pathService = pathService;
+			_resourceManager = resourceManager;
+			_pathService = appPathService;
 		}
 
 		public PipelineExecutionResult Execute(SectionGroup subject)
@@ -46,7 +48,8 @@ namespace SampleApp.Extensions.UI.Button
 			clientSideButton.CausesValidation = false;
 
 			//The client side command which executes on right click. 
-			clientSideButton.Attributes.Add("onclick", "if (confirm('Are you sure you want to show your site?')) { window.location.replace('/'); } return false;");
+			var translatedConfirmText = _resourceManager.GetLocalizedText("SampleApp", "confirmClientSideButton");
+			clientSideButton.Attributes.Add("onclick", "if (confirm('" + translatedConfirmText + "')) { window.location.replace('/'); } return false;");
 			
 			return clientSideButton;
 		}
