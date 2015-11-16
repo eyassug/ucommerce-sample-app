@@ -4,11 +4,17 @@ Param(
     [string]$TargetDirectory = "C:\tmp\SampleApp",
     
     [Parameter(Mandatory=$False)]
-    [string]$SourceDirectory = "C:\Projects\uCommerce Sample App\src\SampleApp.Web"
+    [string]$SourceDirectory
 )
 
 function GetScriptDirectory { 
     Split-Path -parent $PSCommandPath 
+}
+
+function GetProjectFolder {
+	$scriptPath = GetScriptDirectory;
+	
+	return "$scriptPath\..\..\src\SampleApp.Web"
 }
 
 function MoveNuspecFile {
@@ -39,6 +45,10 @@ function Run-It () {
 
         Invoke-PSake "$ScriptPath\Rebuild.App.Solution.ps1" "Rebuild" -parameters $rebuildProperties
 
+		if ($SourceDirectory.Equals(""))
+		{
+			$SourceDirectory = GetProjectFolder;
+		}
         #Step 02 Extract files
         $extractProperties = @{
           "TargetDirectory" = $TargetDirectory + "\Content";
