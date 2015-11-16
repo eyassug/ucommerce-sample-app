@@ -41,6 +41,9 @@ function GetFilesToCopy($path){
 }
 
 function CopyFiles ($appDirectory) {
+	write-host 'copying files from: ' $WorkDictionary	
+	write-host 'copying files to: ' $appDirectory;
+	
 	$filesToCopy = GetFilesToCopy($WorkDictionary);
 	
 	foreach($fileToCopy in $filesToCopy)
@@ -83,10 +86,11 @@ function CopyDllToBin ($appDirectory) {
 
 task Run-It {
         
-	write-host 'Extract app to' + $deployment_directory;
+	write-host 'Extracting app to' + $deployment_directory;
     
     #Creates app directory
     If (!(Test-Path $deployment_directory)) {
+		write-host 'Creating directory: ' + $deployment_directory;
 	    New-Item $deployment_directory -type directory 
     }	
 	
