@@ -41,6 +41,7 @@ function Run-It () {
         $rebuildProperties = @{
           "Solution_file" = $SolutionFile;
           "srcDir" = Resolve-Path "$scriptPath\..\..\src";
+		  "Configuration" = "Release"
         };
 
         Invoke-PSake "$ScriptPath\Rebuild.App.Solution.ps1" "Rebuild" -parameters $rebuildProperties
