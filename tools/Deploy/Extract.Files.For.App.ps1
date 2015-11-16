@@ -4,36 +4,11 @@ properties {
 }
 
 function FileExtensionBlackList {
-  return "*.cd","*.cs", "*.dll", "*.xml", "*.pdb", "*.csproj*", "*.cache";  
+  return "*.cd","*.cs","*.dll","*.xml","*obj*","*.pdb","*.csproj*","*.cache","*.orig";  
 }
 
 function DllExtensionBlackList {
-  return "UCommerce.*",
-    "Castle.Core.dll",
-    "Castle.Windsor.dll",
-    "ClientDependency.Core.dll",
-    "Esent.Interop.dll",
-    "FluentNHibernate.dll",
-    "ICSharpCode.NRefactory.dll",
-    "ICSharpCode.NRefactory.CSharp.dll",
-    "Iesi.Collections.dll",
-    "Jint.Raven.dll",
-    "log4net.dll",
-    "Lucene.Net.dll",
-    "Lucene.Net.Contrib.Spatial.NTS.dll",
-    "Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll",
-    "Microsoft.WindowsAzure.Storage.dll",
-    "NHibernate.dll",
-    "Raven.Abstractions.dll",
-    "Raven.Client.Embedded.dll",
-    "Raven.Client.Lightweight.dll",
-    "Raven.Database.dll",
-    "ServiceStack.Common.dll";
-    "ServiceStack.dll",
-    "ServiceStack.Interfaces.dll",
-    "ServiceStack.ServiceInterface.dll",
-    "ServiceStack.Text.dll",
-    "Spatial4n.Core.NTS.dll";  
+  return "UCommerce.*","Castle.Core.dll","Castle.Windsor.dll","ClientDependency.Core.dll","Esent.Interop.dll","FluentNHibernate.dll","ICSharpCode.NRefactory.dll","ICSharpCode.NRefactory.CSharp.dll","Iesi.Collections.dll","Jint.Raven.dll","log4net.dll","Lucene.Net.dll","Lucene.Net.Contrib.Spatial.NTS.dll","Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll","Microsoft.WindowsAzure.Storage.dll","NHibernate.dll","Raven.Abstractions.dll","Raven.Client.Embedded.dll","Raven.Client.Lightweight.dll","Raven.Database.dll","ServiceStack.Common.dll";"ServiceStack.dll","ServiceStack.Interfaces.dll","ServiceStack.ServiceInterface.dll","ServiceStack.Text.dll","Spatial4n.Core.NTS.dll";  
 }
 
 function GetFilesToCopy($path){
@@ -53,7 +28,7 @@ function CopyFiles ($appDirectory) {
 		
 		# Create the folder structure and empty destination file,
 		New-Item -ItemType File -Path $targetFile -Force
-		
+		Write-Host 'copying' $targetFile
 		Copy-Item $sourceFile $targetFile -Force
 	}
 }
