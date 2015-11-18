@@ -98,6 +98,18 @@
       <Name>SampleApp.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration\TreeNode.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration\ShoeDefinitionPipeline.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration\Configuration.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration\Tabs.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
