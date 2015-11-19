@@ -110,6 +110,12 @@
   <ItemGroup>
     <Content Include="Configuration\Tabs.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration\Initialize.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration\TabButtons.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

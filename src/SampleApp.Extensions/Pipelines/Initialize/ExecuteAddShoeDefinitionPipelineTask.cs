@@ -17,6 +17,7 @@ namespace SampleApp.Extensions.Pipelines.Initialize
 
 		public PipelineExecutionResult Execute(InitializeArgs subject)
 		{
+			//Run pipeline as multiple steps are needed. See 'ShoeDefinitionPipeline.config' for steps included.
 			return _addShoeDefinitionPipeline.Execute(new UCommerce.EntitiesV2.ProductDefinition());
 		}
 	}
