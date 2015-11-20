@@ -7,6 +7,10 @@ using UCommerce.Infrastructure;
 
 namespace SampleApp.Extensions.Api
 {
+	/// <summary>
+	/// SampleApi for helper methods
+	/// </summary>
+	/// <remarks></remarks>
 	public static class SampleApi
 	{
 		public static string uCommerceVersion()
