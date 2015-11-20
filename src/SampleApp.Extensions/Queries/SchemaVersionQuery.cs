@@ -10,6 +10,7 @@ namespace SampleApp.Extensions.Queries
 	{
 		public IEnumerable<int> Execute(NHibernate.ISession session)
 		{
+			//CreateSQLQuery allows to execute standard TSQL through NHibernate APIs
 			return session.CreateSQLQuery("SELECT SchemaVersion FROM uCommerce_SystemVersion").List<int>();
 		}
 	}
