@@ -32,7 +32,7 @@ namespace SampleApp.Extensions.UI.Button
 			if (subject.GetViewName() != Constants.UI.Pages.Settings.Search) return PipelineExecutionResult.Success;
 			
 			//Finds the right section by filtering on Name and OriginalName 
-			var section = subject.Sections.FirstOrDefault(s => s.Name == "Common" && s.OriginalName == "IndexFromScratch.ascx");
+			var section = subject.Sections.FirstOrDefault(s => s.OriginalName == "IndexFromScratch.ascx");
 
 			//If the view is not the one that we want to hook into, then do nothing
 			if (section == null) return PipelineExecutionResult.Success;
