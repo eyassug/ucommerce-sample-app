@@ -31,7 +31,7 @@ namespace SampleApp.Extensions.UI.Button
 		{
 			if (subject.GetViewName() != Constants.UI.Pages.Settings.Search) return PipelineExecutionResult.Success;
 			
-			//Finds the right section by filtering on Name and OriginalName 
+			//Finds the right section by filtering on OriginalName, using the Constants in uCommerce
 			var section = subject.Sections.FirstOrDefault(s => s.OriginalName == Constants.UI.Sections.Settings.Search.Common);
 
 			//If the view is not the one that we want to hook into, then do nothing
