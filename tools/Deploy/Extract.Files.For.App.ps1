@@ -23,55 +23,48 @@ function CopyFiles ($appDirectory) {
 	
 	foreach($fileToCopy in $filesToCopy)
 	{
-        $sourceFile = $WorkDictionary + "\" + $fileToCopy;
+    $sourceFile = $WorkDictionary + "\" + $fileToCopy;
 		$targetFile = $appDirectory + "\" + $fileToCopy;
 		
-		# Create the folder structure and empty destination file,
+		#Create the folder structure and empty destination file,
 		New-Item -ItemType File -Path $targetFile -Force
 		Write-Host 'copying' $targetFile
 		Copy-Item $sourceFile $targetFile -Force
 	}
 }
 
-
 function GetDllesToCopy($path){
 	return Get-ChildItem $path -name -recurse -include "*.dll*","*.pdb*"  -exclude (DllExtensionBlackList);
 }
 
-function CopyDllToBin ($appDirectory) {
-
-    
+function CopyDllToBin ($appDirectory) {    
 	$filesToCopy = GetDllesToCopy($WorkDictionary);
 
 	foreach($fileToCopy in $filesToCopy)
 	{
-        if($fileToCopy -notlike '*obj*'){
-		    $sourceFile = $WorkDictionary + "\" + $fileToCopy;
-		    $targetFile = $appDirectory + "\" + $fileToCopy;	
+    if($fileToCopy -notlike '*obj*'){
+      $sourceFile = $WorkDictionary + "\" + $fileToCopy;
+      $targetFile = $appDirectory + "\" + $fileToCopy;	
 		
-		    # Create the folder structure and empty destination file,
-		    New-Item -ItemType File -Path $targetFile -Force	
-		
-		    Copy-Item $sourceFile $targetFile -Force
-            #& robocopy $sourceFile $targetFile /S /XF *.cs /xf *.user /xf *.old /xf *.vspscc /xf xsltExtensions.config /xf uCommerce.key /xf *.tmp /xd _Resharper* /xd .svn /xd _svn /xf *.orig /E /NFL /NDL
-    
-        }
+      #Create the folder structure and empty destination file,
+      New-Item -ItemType File -Path $targetFile -Force			
+      Copy-Item $sourceFile $targetFile -Force
+    }
 	}
 }
 
-task Run-It {
-        
+task Run-It {        
 	write-host 'Extracting app to' + $deployment_directory;
     
-    #Creates app directory
-    If (!(Test-Path $deployment_directory)) {
+  #Creates app directory
+  if (!(Test-Path $deployment_directory)) {
 		write-host 'Creating directory: ' + $deployment_directory;
-	    New-Item $deployment_directory -type directory 
-    }	
+    New-Item $deployment_directory -type directory 
+  }	
 	
 	CopyFiles($deployment_directory);
 
 	CopyDllToBin($deployment_directory);
     
-    write-host 'Extracted app to' + $deployment_directory;   
+  write-host 'Extracted app to' + $deployment_directory;   
 }
