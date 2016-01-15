@@ -19,7 +19,7 @@ Getting started with the Samples App is really easy. Just follow the few steps b
 * Open the .sln
 * Open 'Deploy.to.uCommerce.ps1' found under the Deployment folder in the solution.
 * Modify the function "GetDeploymentDirectories" so it matches the root of your website
-* Build the solution (may require Administrator prev.)
+* Build the solution (Requires Administrator prev. on VS)
 * Restart the website
 * ??
 * Profit
