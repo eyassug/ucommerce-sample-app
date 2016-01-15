@@ -4,7 +4,7 @@ properties {
 }
 
 function FileExtensionBlackList {
-  return "*.cd","*.cs","*.dll","*.xml","*obj*","*.pdb","*.csproj*","*.cache","*.orig";  
+  return "*.cd","*.cs","*.dll","*.xml","*obj*","*.pdb","*.csproj*","*.cache","*.orig","packages.config";  
 }
 
 function DllExtensionBlackList {
@@ -20,6 +20,12 @@ function CopyFiles ($appDirectory) {
 	write-host 'copying files to: ' $appDirectory;
 	
 	$filesToCopy = GetFilesToCopy($WorkDictionary);
+	 
+
+    if(!$filesToCopy)
+    {
+      return;
+    }
 	
 	foreach($fileToCopy in $filesToCopy)
 	{
