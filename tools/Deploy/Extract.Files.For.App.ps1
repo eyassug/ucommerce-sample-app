@@ -4,7 +4,7 @@ properties {
 }
 
 function FileExtensionBlackList {
-  return "*.cd","*.cs","*.dll","*.xml","*obj*","*.pdb","*.csproj*","*.cache","*.orig";  
+  return "*.cd","*.cs","*.dll","*.xml","*obj*","*.pdb","*.csproj*","*.cache","*.orig","packages.config";  
 }
 
 function DllExtensionBlackList {
