@@ -20,6 +20,12 @@ function CopyFiles ($appDirectory) {
 	write-host 'copying files to: ' $appDirectory;
 	
 	$filesToCopy = GetFilesToCopy($WorkDictionary);
+	 
+
+    if(!$filesToCopy)
+    {
+      return;
+    }
 	
 	foreach($fileToCopy in $filesToCopy)
 	{

@@ -17,8 +17,8 @@ function GetAppName {
   return $fileContents.package.metadata.id;
 }
 
-function Get-ScriptDirectory { 
-    Split-Path -parent $PSCommandPath 
+function Get-ScriptDirectory {
+    Split-Path $script:MyInvocation.MyCommand.Path
 }
 
 function GetProjectFolder {
