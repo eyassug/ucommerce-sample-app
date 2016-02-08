@@ -45,7 +45,7 @@ namespace SampleApp.Extensions.UI.Button
 		public ImageButton CreateServerSideButton()
 		{
 			var serverSideButton = new ImageButton();
-			serverSideButton.ImageUrl = Resources.Images.Menu.Sort;
+			serverSideButton.ImageUrl = UCommerce.Presentation.Resources.Images.Menu.Sort;
 			serverSideButton.CausesValidation = false;
 
 			//The client side command which executes on right click.
