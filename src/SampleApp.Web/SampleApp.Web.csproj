@@ -66,6 +66,7 @@
   <ItemGroup>
     <Content Include="About.ascx" />
     <Content Include="Media\uCommerce-logo-symbol-small.png" />
+    <Content Include="Nuget\NuGet.exe" />
     <Content Include="SampleApp.config">
       <SubType>Designer</SubType>
     </Content>
@@ -115,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\TabButtons.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Nuget\App.Manifest.nuspec" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
