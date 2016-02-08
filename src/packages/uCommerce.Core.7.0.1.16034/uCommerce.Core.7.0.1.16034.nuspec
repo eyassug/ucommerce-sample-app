@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>uCommerce.Core</id>
+    <version>7.0.1.16034</version>
+    <authors>uCommerce</authors>
+    <owners>uCommerce</owners>
+    <iconUrl>http://www.ucommerce.net/images/logo-250x250.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Contains the core assemblies for running uCommerce</description>
+    <copyright>Copyright 2016</copyright>
+    <tags>uCommerce</tags>
+  </metadata>
+</package>
