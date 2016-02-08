@@ -18,10 +18,7 @@ function GetProjectFolder {
 }
 
 function MoveNuspecFile {
-  $scriptPath = GetScriptDirectory;
-  $nugetPath = $scriptPath + "\..\NuGet"
-
-  Copy-Item -Path $nugetPath\App.Manifest.nuspec -Destination $TargetDirectory
+  Copy-Item -Path $SourceDirectory\Nuget\App.Manifest.nuspec -Destination $TargetDirectory
 }
 
 function GetSolutionFile { 
@@ -32,7 +29,7 @@ function GetSolutionFile {
 
 function GetVersion {
   $scriptPath = GetScriptDirectory;
-  $nuspecFile = "$scriptPath\..\NuGet\App.Manifest.nuspec";
+  $nuspecFile = "$sourceDirectory\NuGet\App.Manifest.nuspec";
 
   [xml]$fileContents = Get-Content -Path $nuspecFile
   return $fileContents.package.metadata.version;
@@ -57,7 +54,19 @@ function UpdateAssemblyInfos {
 
 function Run-It () {
   try {  
+
+    if ($SourceDirectory.Equals(""))
+    {
+      $SourceDirectory = GetProjectFolder;
+    }
+
     $scriptPath = GetScriptDirectory;
+
+    Echo "Building app with configuration:"
+    Echo "`t sourceDirectory: $SourceDirectory"
+    Echo "`t scriptPath: $scriptPath"
+
+
     Import-Module "$scriptPath\..\psake\4.3.0.0\psake.psm1"
                    
     #Step 01 rebuild solution
@@ -70,11 +79,6 @@ function Run-It () {
 
     Invoke-PSake "$ScriptPath\Rebuild.App.Solution.ps1" "Rebuild" -parameters $rebuildProperties
             
-    if ($SourceDirectory.Equals(""))
-    {
-      $SourceDirectory = GetProjectFolder;
-    }
-
     #Step 02 update assembly version on projects in sln. 
     UpdateAssemblyInfos;    
 
@@ -97,7 +101,7 @@ function Run-It () {
 
     #Step 05 pack it up
     MoveNuspecFile;
-    $nuget = $scriptPath + "\..\NuGet";
+    $nuget = $SourceDirectory + "\NuGet";
     $nuspecFilePath = $TargetDirectory + "\App.Manifest.nuspec";
 
     & "$nuget\nuget.exe" pack $nuspecFilePath -OutputDirectory $TargetDirectory;

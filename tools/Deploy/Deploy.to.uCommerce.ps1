@@ -5,13 +5,13 @@ Param(
 
 function GetDeploymentDirectories {
   return @(
-    "C:\inetpub\sc8\Website"
+    "C:\inetpub\U6\Website"
   )
 }
 
 function GetAppName {
   $scriptPath = Get-ScriptDirectory;
-  $nuspecFile = "$scriptPath\..\NuGet\App.Manifest.nuspec";
+  $nuspecFile = "$SourceDirectory\NuGet\App.Manifest.nuspec";
 
   [xml]$fileContents = Get-Content -Path $nuspecFile
   return $fileContents.package.metadata.id;

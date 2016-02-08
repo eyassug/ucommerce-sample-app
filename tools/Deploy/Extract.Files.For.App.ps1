@@ -4,7 +4,7 @@ properties {
 }
 
 function FileExtensionBlackList {
-  return "web.*.config", "web.config","*dll*", "*.cd","*.cs","*.dll","*.xml","*obj*","*.pdb","*.csproj*","*.cache","*.orig","packages.config";  
+  return "web.*.config", "web.config","*dll*", "*.cd","*.cs","*.dll","*.xml","*obj*","*.pdb","*.csproj*","*.cache","*.orig","packages.config", "NuGet.exe", "*\Nuget", "App.Manifest.nuspec";  
 }
 
 function DllExtensionBlackList {
