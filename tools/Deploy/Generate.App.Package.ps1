@@ -69,17 +69,17 @@ function Run-It () {
     };
 
     Invoke-PSake "$ScriptPath\Rebuild.App.Solution.ps1" "Rebuild" -parameters $rebuildProperties
-
-    #Step 02 update assembly version on projects in sln. 
-    UpdateAssemblyInfos;
-    
-    
-    #Step 03 Extract files
+            
     if ($SourceDirectory.Equals(""))
     {
       $SourceDirectory = GetProjectFolder;
     }
-        
+
+    #Step 02 update assembly version on projects in sln. 
+    UpdateAssemblyInfos;    
+
+    #Step 03 Extract files
+
     $extractProperties = @{
       "TargetDirectory" = $TargetDirectory + "\Content";
       "SourceDirectory" = $SourceDirectory;
