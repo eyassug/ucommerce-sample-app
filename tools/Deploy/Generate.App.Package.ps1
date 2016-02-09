@@ -95,6 +95,16 @@ function Run-It () {
     Move-Item $pathToTargetBinDir\*.dll $pathToTargetLibDir
     Remove-Item $pathToTargetBinDir -recurse
 
+    #TEST
+    $From = $SourceDirectory + "..\..\documentation"
+    $To = $TargetDirectory + "\documentation"
+
+    $something = $From + "\*"
+
+    if(Test-Path $something) {
+        Copy-Item $From $To -recurse
+    }
+
     #Step 05 pack it up
     MoveNuspecFile;
     $nuget = $scriptPath + "\..\NuGet";
