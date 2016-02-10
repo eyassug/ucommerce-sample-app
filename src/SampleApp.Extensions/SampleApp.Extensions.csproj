@@ -47,23 +47,19 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UCommerce, Version=7.0.1.16034, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="UCommerce">
       <HintPath>..\packages\uCommerce.Core.7.0.1.16034\lib\net400\UCommerce.dll</HintPath>
     </Reference>
     <Reference Include="UCommerce.Admin">
       <HintPath>..\packages\uCommerce.Core.7.0.1.16034\lib\net400\UCommerce.Admin.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Infrastructure, Version=7.0.1.16034, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="UCommerce.Infrastructure">
       <HintPath>..\packages\uCommerce.Core.7.0.1.16034\lib\net400\UCommerce.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Pipelines, Version=7.0.1.16034, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="UCommerce.Pipelines">
       <HintPath>..\packages\uCommerce.Core.7.0.1.16034\lib\net400\UCommerce.Pipelines.dll</HintPath>
     </Reference>
-    <Reference Include="UCommerce.Presentation, Version=7.0.1.16034, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="UCommerce.Presentation">
       <HintPath>..\packages\uCommerce.Core.7.0.1.16034\lib\net400\UCommerce.Presentation.dll</HintPath>
     </Reference>
     <Reference Include="UCommerce.Transactions.Payments">

@@ -11,6 +11,5 @@
 		public bool ShowUCommerceVersion { get; set; }
 		
 		public bool ShowShemaVersion { get; set; }
-
 	}
 }
