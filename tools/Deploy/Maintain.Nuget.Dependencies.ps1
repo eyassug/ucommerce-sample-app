@@ -44,51 +44,44 @@ function RemoveDuplicates ($dependencies){
   return $refactoredDependencies
 }
 
-function AvoidAddingAlreadyRegisteredDependencies ($dependencyCandidates){
+function RemoveAlreadyRegisteredDependencies ($nuspec) { 
   $nuspec = LoadXmlFile $nuspecFile
-  $dependencies = @();
-  
-  $addDependency = $True;
-  foreach ($dependencyCandidate in $dependencyCandidates) {
-    foreach ($dependency in $nuspec.package.metadata.dependencies.dependency) {
-      if($dependency.id -eq $dependencyCandidate.id){
-        $addDependency = $False;
-      }
-    }
-    if($addDependency){
-      $dependencies += $dependencyCandidate  
-    }
+  $dependencies = $nuspec.selectSingleNode('package/metadata/dependencies')
+  if($dependencies){
+    $nuspec.package.metadata.removeChild($dependencies)
   }
-  return $dependencies
+  $nuspec.Save($nuspecFile)
 }
 
 function AddDependenciesToNuspec ($dependencies){
-  $packagesConfig = LoadXmlFile $nuspecFile
-  
+  $nuspec = LoadXmlFile $nuspecFile
+
   $dependenciesEle;
-  if($packagesConfig.package.metadata.dependencies){
-    $dependenciesEle = $packagesConfig.package.metadata.dependencies
+  if($nuspec.package.metadata.dependencies){
+    $dependenciesEle = $nuspec.package.metadata.dependencies
   }
   else {
-    $dependenciesEle = $packagesConfig.CreateElement('dependencies')  
+    write-host "*****************d**************"
+    write-host $nuspec.package.metadata.dependencies
+    write-host $nuspec.package.metadata.id
+    $dependenciesEle = $nuspec.CreateElement('dependencies')  
   }
   
   foreach ($package in $nugetDependencies) {          
-     $dependencyEle = $packagesConfig.CreateElement('dependency')
+     $dependencyEle = $nuspec.CreateElement('dependency')
      $dependencyEle.SetAttribute('id', $package.id)
      $dependencyEle.SetAttribute('version', $package.version)
      
      $dependenciesEle.AppendChild($dependencyEle) 
   }
-  $packagesConfig.package.metadata.AppendChild($dependenciesEle) 
-  $packagesConfig.Save($nuspecFile)
+  $nuspec.package.metadata.AppendChild($dependenciesEle) 
+  $nuspec.Save($nuspecFile)
 }
 
 task Run-It {        
 	write-host 'Maintain Nuget dependencies';
-  
+  RemoveAlreadyRegisteredDependencies;
   $nugetDependencies = GetNugetDependencies;
   $nugetDependencies = RemoveDuplicates $nugetDependencies;
-  $nugetDependencies = AvoidAddingAlreadyRegisteredDependencies $nugetDependencies;
   AddDependenciesToNuspec $nugetDependencies;
 }
