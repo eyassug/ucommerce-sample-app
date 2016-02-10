@@ -59,9 +59,29 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\uCommerce.Core.7.0.1.16034\lib\net400\UCommerce.dll</HintPath>
     </Reference>
+    <Reference Include="UCommerce.Admin, Version=7.0.1.16034, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\uCommerce.Core.7.0.1.16034\lib\net400\UCommerce.Admin.dll</HintPath>
+    </Reference>
     <Reference Include="UCommerce.Infrastructure, Version=7.0.1.16034, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\uCommerce.Core.7.0.1.16034\lib\net400\UCommerce.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Pipelines, Version=7.0.1.16034, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\uCommerce.Core.7.0.1.16034\lib\net400\UCommerce.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Presentation, Version=7.0.1.16034, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\uCommerce.Core.7.0.1.16034\lib\net400\UCommerce.Presentation.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Transactions.Payments, Version=7.0.1.16034, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\uCommerce.Core.7.0.1.16034\lib\net400\UCommerce.Transactions.Payments.dll</HintPath>
+    </Reference>
+    <Reference Include="UCommerce.Web.Api, Version=7.0.1.16034, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\uCommerce.Core.7.0.1.16034\lib\net400\UCommerce.Web.Api.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -94,12 +114,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SampleApp.Extensions\SampleApp.Extensions.csproj">
-      <Project>{fe1a22e3-21a3-4653-a9d8-7df019d01433}</Project>
-      <Name>SampleApp.Extensions</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Configuration\TreeNode.config" />
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +130,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configuration\TabButtons.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SampleApp.Extensions\SampleApp.Extensions.csproj">
+      <Project>{fe1a22e3-21a3-4653-a9d8-7df019d01433}</Project>
+      <Name>SampleApp.Extensions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
