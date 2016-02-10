@@ -4,7 +4,10 @@ Param(
   [string]$TargetDirectory = "C:\tmp\SampleApp",
     
   [Parameter(Mandatory=$False)]
-  [string]$SourceDirectory
+  [string]$SourceDirectory, 
+	
+	[Parameter(Mandatory=$False)]
+	[string]$NuspecFile = "App.Manifest.nuspec"
 )
 
 function GetScriptDirectory { 
@@ -19,9 +22,9 @@ function GetProjectFolder {
 
 function MoveNuspecFile {
   $scriptPath = GetScriptDirectory;
-  $nugetPath = $scriptPath + "\..\NuGet"
+  $nugetPath = $scriptPath + "\..\NuGet\" + $NuspecFile;
 
-  Copy-Item -Path $nugetPath\App.Manifest.nuspec -Destination $TargetDirectory
+  Copy-Item -Path $nugetPath -Destination $TargetDirectory
 }
 
 function GetSolutionFile { 
@@ -32,7 +35,7 @@ function GetSolutionFile {
 
 function GetVersion {
   $scriptPath = GetScriptDirectory;
-  $nuspecFile = "$scriptPath\..\NuGet\App.Manifest.nuspec";
+  $nuspecFile = "$scriptPath\..\NuGet\" + $NuspecFile;
 
   [xml]$fileContents = Get-Content -Path $nuspecFile
   return $fileContents.package.metadata.version;
@@ -74,11 +77,21 @@ function Run-It () {
     {
       $SourceDirectory = GetProjectFolder;
     }
-
-    #Step 02 update assembly version on projects in sln. 
+    
+    #Step 02 Maintain Nuget dependencies
+    $maintainNugetDependenciesProperties = @{
+      "projects" = @(
+        $SourceDirectory
+      );
+      "nuspecFile" = "$scriptPath\..\NuGet\$NuspecFile"
+    };
+        
+    Invoke-PSake "$ScriptPath\Maintain.Nuget.Dependencies.ps1" "Run-It" -parameters $maintainNugetDependenciesProperties
+    
+    #Step 03 update assembly version on projects in sln. 
     UpdateAssemblyInfos;    
 
-    #Step 03 Extract files
+    #Step 04 Extract files
 
     $extractProperties = @{
       "TargetDirectory" = $TargetDirectory + "\Content";
@@ -87,7 +100,7 @@ function Run-It () {
 
     Invoke-PSake "$ScriptPath\Extract.Files.For.App.ps1" "Run-It" -parameters $extractProperties
    
-    #Step 04 bin to ..\lib
+    #Step 05 bin to ..\lib
     $pathToTargetBinDir = $TargetDirectory+ "\Content\bin"
     $pathToTargetLibDir = $TargetDirectory+ "\lib\net400"
         
@@ -95,14 +108,14 @@ function Run-It () {
     Move-Item $pathToTargetBinDir\*.dll $pathToTargetLibDir
     Remove-Item $pathToTargetBinDir -recurse
 
-    #Step 05 pack it up
+    #Step 06 pack it up
     MoveNuspecFile;
     $nuget = $scriptPath + "\..\NuGet";
-    $nuspecFilePath = $TargetDirectory + "\App.Manifest.nuspec";
+    $nuspecFilePath = $TargetDirectory + "\" + $NuspecFile;
 
     & "$nuget\nuget.exe" pack $nuspecFilePath -OutputDirectory $TargetDirectory;
 
-    #Step 06 remove/delete files. 
+    #Step 07 remove/delete files. 
     Remove-Item $TargetDirectory\* -exclude *.nupkg -recurse
   } catch {  
     Write-Error $_.Exception.Message -ErrorAction Stop  
