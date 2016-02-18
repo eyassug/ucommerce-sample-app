@@ -135,10 +135,10 @@ div.versionSelectorWrapper {
 	width: 15px;
     height: 15px;
     display: inline-block;
-    background-image: url(/images/icons/16x16/treemenu_collapsed.png);
+    background-image: url(../images/icons/16x16/treemenu_collapsed.png);
     line-height: normal;
 }
 
 .accordion li a.active span, .accordion li a.selected span  {
-	background-image: url(/images/icons/16x16/treemenu_expanded.png);
+	background-image: url(../images/icons/16x16/treemenu_expanded.png);
 }

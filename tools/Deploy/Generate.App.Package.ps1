@@ -75,6 +75,9 @@ function Run-It () {
       $SourceDirectory = GetProjectFolder;
     }
 
+    #Step 02 generate app documentation
+    & ($SourceDirectory + "\..\..\tools\Documentation Compiler\Documentation.Compiler\bin\Release\Compiler.Runner.exe")
+
     #Step 02 update assembly version on projects in sln. 
     UpdateAssemblyInfos;    
 
@@ -93,11 +96,11 @@ function Run-It () {
         
     New-Item $pathToTargetLibDir -type directory
     Move-Item $pathToTargetBinDir\*.dll $pathToTargetLibDir
-    Remove-Item $pathToTargetBinDir -recurse
+    Remove-Item $pathToTargetBinDir -recurse    
 
-    #TEST
-    $From = $SourceDirectory + "..\..\documentation"
-    $To = $TargetDirectory + "\documentation"
+    #Step 6 add the documentation to the package
+    $From = $SourceDirectory + "\..\..\documentation"
+    $To = $TargetDirectory + "\Documentation"
 
     $something = $From + "\*"
 

@@ -1,10 +1,16 @@
 $('a:has(".toggle")').css('padding-left', '0');
 
+$(function() {	
+	$(".accordion a").each(function() {
+		this.href = location.href.toLowerCase().match(".*documentation\/") + this.getAttribute("href"); 
+	});
+});
+
 $(function() {
 	$('.accordion').children().each(function(i, el) { 
 		var fullPath = $(el).children()[0].href;
 		var slug = fullPath.replace(/\/[^\/]*$/, '');
-		
+
 		if(location.href.indexOf(slug) >= 0) {
 			// Selected section
 			$($(el).children()[1]).css('display', '');

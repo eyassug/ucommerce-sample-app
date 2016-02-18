@@ -7,18 +7,23 @@ namespace Compiler.Runner
 {
 	public class Program
 	{
-		private static readonly string DocsOutput = @"C:\Projects\ucommerce-sample-app\documentation\SampleApp";
+		/// <summary>
+		/// Use this property to control where the project outputs the documentation when you run this proram
+		/// If you want your documentation to be included in your NuGet package when this project is build then
+		/// the property need to build the documentation the documentation folder in the root of the project folder.
+		/// </summary>
+		private static readonly string DocsOutput = @"C:\Projects\ucommerce-sample-app\documentation";
 
 		public static void Main(string[] args)
 		{
-			var rootPath = Path.GetFullPath("./../../../../../");
+			var rootPath = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + "/../../../../../");
 
 			Generate(rootPath, OutputType.Html);
 
 			// Copying resource files to docs output root
 			var resourcesPath = Path.Combine(rootPath, "Tools", "Documentation Template");
 
-			var resourceDest = Path.Combine(DocsOutput, @"..\");
+			var resourceDest = Path.GetFullPath(DocsOutput);
 			foreach (var resourceDirectory in Directory.GetDirectories(resourcesPath, "*", SearchOption.AllDirectories))
 			{
 				Directory.CreateDirectory(resourceDirectory.Replace(resourcesPath, resourceDest));
@@ -35,8 +40,6 @@ namespace Compiler.Runner
 
 				File.Copy(resourceFile, destFile);
 			}
-
-			Console.ReadLine();
 		}
 
 		private static void Generate(string rootPath, OutputType outputType)
@@ -76,7 +79,7 @@ namespace Compiler.Runner
 					PageTemplate =
 						File.ReadAllText(
 							Path.Combine(rootPath, @"Tools\documentation-html-template.html")),
-					RootUrl = "/sampleapp/",
+					RootUrl = "",
 					ImagesPath = "images/",
 				};
 				return output;
