@@ -2,7 +2,15 @@ $('a:has(".toggle")').css('padding-left', '0');
 
 $(function() {	
 	$(".accordion a").each(function() {
-		this.href = location.href.toLowerCase().match(".*documentation\/") + this.getAttribute("href"); 
+		var match = location.href.toLowerCase().match(".*documentation\/")
+		if(match == null) 
+		{
+			this.href = "/" + this.getAttribute("href"); 
+		} 
+		else  
+		{
+			this.href = match + this.getAttribute("href"); 
+		}
 	});
 });
 
