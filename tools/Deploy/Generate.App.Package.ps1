@@ -4,7 +4,10 @@ Param(
   [string]$TargetDirectory = "C:\tmp\SampleApp",
     
   [Parameter(Mandatory=$False)]
-  [string]$SourceDirectory
+  [string]$SourceDirectory,
+
+  [Parameter(Mandatory=$False)]
+  [string]$DocumentationSourceDirectory = "C:\Projects\ucommerce-sample-app\src\SampleApp.Documentation"
 )
 
 function GetScriptDirectory { 
@@ -73,10 +76,7 @@ function Run-It () {
     if ($SourceDirectory.Equals(""))
     {
       $SourceDirectory = GetProjectFolder;
-    }
-
-    #Step 02 generate app documentation
-    & ($SourceDirectory + "\..\..\tools\Documentation Compiler\Documentation.Compiler\bin\Release\Compiler.Runner.exe")
+    }    
 
     #Step 02 update assembly version on projects in sln. 
     UpdateAssemblyInfos;    
@@ -98,24 +98,23 @@ function Run-It () {
     Move-Item $pathToTargetBinDir\*.dll $pathToTargetLibDir
     Remove-Item $pathToTargetBinDir -recurse    
 
-    #Step 6 add the documentation to the package
-    $From = $SourceDirectory + "\..\..\documentation"
-    $To = $TargetDirectory + "\Documentation"
+    # Step 05 generate and add documentation to the package
+    $DocumentationProperties = @{
+      "TargetDirectory" = $TargetDirectory;
+      "SourceDirectory" = $SourceDirectory + "\..\..";
+      "DocumentationSourceDirectory" = $DocumentationSourceDirectory;
+    };
 
-    $something = $From + "\*"
+    Invoke-PSake "$ScriptPath\Run.Documentation.Scripts.ps1" "Run-It" -parameters $DocumentationProperties
 
-    if(Test-Path $something) {
-        Copy-Item $From $To -recurse
-    }
-
-    #Step 05 pack it up
+    #Step 06 pack it up
     MoveNuspecFile;
     $nuget = $scriptPath + "\..\NuGet";
     $nuspecFilePath = $TargetDirectory + "\App.Manifest.nuspec";
 
     & "$nuget\nuget.exe" pack $nuspecFilePath -OutputDirectory $TargetDirectory;
 
-    #Step 06 remove/delete files. 
+    #Step 07 remove/delete files. 
     Remove-Item $TargetDirectory\* -exclude *.nupkg -recurse
   } catch {  
     Write-Error $_.Exception.Message -ErrorAction Stop  
