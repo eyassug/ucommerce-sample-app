@@ -14,6 +14,23 @@ $(function() {
 	});
 });
 
+$(function() {	
+	$(".main-col a").each(function() {
+		var r = new RegExp('^(?:[a-z]+:)?//', 'i');
+		if(!r.test(this.getAttribute("href"))) {
+			var match = location.href.toLowerCase().match(".*documentation\/")
+			if(match == null) 
+			{
+				this.href = "/" + this.getAttribute("href"); 
+			} 
+			else  
+			{
+				this.href = match + this.getAttribute("href"); 
+			}
+		}
+	});
+});
+
 $(function() {
 	$('.accordion').children().each(function(i, el) { 
 		var fullPath = $(el).children()[0].href;
