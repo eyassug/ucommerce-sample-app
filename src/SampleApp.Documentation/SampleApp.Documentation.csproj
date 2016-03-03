@@ -68,6 +68,9 @@
     <Content Include="images\cat.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Powershell.exe -ExecutionPolicy Bypass -file "$(SolutionDir)..\tools\Deploy\Generate.App.Documentation.ps1" -OutputDirectory "$(ProjectDir)..\..\documentation"  -InputDirectory $(ProjectDir) -DocumentationCompiler "$(ProjectDir)..\..\tools\Documentation\Compiler\UCommerce.DocsCompilerRunner.exe"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,12 +1,18 @@
-properties {
-  $OutputDirectory;
-  $InputDirectory;
-  $DocumentationCompiler;
-}
+[CmdletBinding()]
+Param(
+  [Parameter(Mandatory=$True)]
+  [string]$OutputDirectory,
+    
+  [Parameter(Mandatory=$True)]
+  [string]$InputDirectory,
 
-. ./Documentation.Helpers.ps1
+  [Parameter(Mandatory=$True)]
+  [string]$DocumentationCompiler
+)
 
-task Run-It {    
+. "$PSScriptRoot\Documentation.Helpers.ps1"
+
+function Run-It {        
     if(GuardAgainstEmpty $InputDirectory "InputDirectory") { return }
     if(GuardAgainstEmpty $OutputDirectory "OutputDirectory") { return }
     if(GuardAgainstEmpty $DocumentationCompiler "DocumentationCompiler") { return }
@@ -14,6 +20,7 @@ task Run-It {
     if(EnsurePathExists $DocumentationCompiler "DocumentationCompiler") { return }
     if(EnsurePathExists $InputDirectory "InputDirectory") { return }
 
-    & $DocumentationCompiler $OutputDirectory $InputDirectory
- 
+    & $DocumentationCompiler $OutputDirectory $InputDirectory 
 }
+
+Run-It

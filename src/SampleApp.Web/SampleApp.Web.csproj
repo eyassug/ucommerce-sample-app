@@ -94,6 +94,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SampleApp.Documentation\SampleApp.Documentation.csproj">
+      <Project>{4170d825-5558-4132-982c-abc6ba785ac9}</Project>
+      <Name>SampleApp.Documentation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SampleApp.Extensions\SampleApp.Extensions.csproj">
       <Project>{fe1a22e3-21a3-4653-a9d8-7df019d01433}</Project>
       <Name>SampleApp.Extensions</Name>
@@ -144,7 +148,7 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>Powershell.exe -ExecutionPolicy Bypass -file "$(SolutionDir)..\tools\Deploy\Deploy.To.uCommerce.ps1" -SourceDirectory "$(ProjectDir)
-Powershell.exe -ExecutionPolicy Bypass -file "$(SolutionDir)..\tools\Deploy\Generate.App.Package.ps1" -TargetDirectory "$(ProjectDir)..\..\package" -SourceDirectory $(ProjectDir)  -DocumentationSourceDirectory "C:\Projects\ucommerce-sample-app\src\SampleApp.Documentation"</PostBuildEvent>
+Powershell.exe -ExecutionPolicy Bypass -file "$(SolutionDir)..\tools\Deploy\Generate.App.Package.ps1" -TargetDirectory "$(ProjectDir)..\..\package" -SourceDirectory $(ProjectDir)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
