@@ -20,6 +20,8 @@ function Run-It {
     if(EnsurePathExists $DocumentationCompiler "DocumentationCompiler") { return }
     if(EnsurePathExists $InputDirectory "InputDirectory") { return }
 
+    Remove-Item $OutputDirectory -Force -recurse
+
     & $DocumentationCompiler $OutputDirectory $InputDirectory 
 }
 
