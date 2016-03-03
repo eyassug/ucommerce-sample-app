@@ -1,11 +1,11 @@
 Param(
-  [Parameter(Mandatory=$False)]
+  [Parameter(Mandatory=$True)]
   [string]$SourceDirectory
 )
 
 function GetDeploymentDirectories {
   return @(
-    "C:\inetpub\sc8\Website"
+    "C:\inetpub\u7dev\Website"
   )
 }
 
@@ -40,16 +40,12 @@ function LocateAppsFolder($deployment_directory){
 }
 
 function Run-It () {
-  try {  
-		if ($SourceDirectory.Equals(""))
-		{
-			$SourceDirectory = GetProjectFolder;
-		}
-
-		$scriptPath = Get-ScriptDirectory;
+  try { 
+  	
+    $scriptPath = Get-ScriptDirectory;
     Import-Module "$scriptPath\..\psake\4.3.0.0\psake.psm1"
-		$deployment_directories = GetDeploymentDirectories;
-		$appName = GetAppName;      
+	$deployment_directories = GetDeploymentDirectories;
+	$appName = GetAppName;      
 
     foreach($deployment_directory in $deployment_directories)
     {
