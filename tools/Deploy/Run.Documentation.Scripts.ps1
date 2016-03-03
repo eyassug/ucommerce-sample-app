@@ -8,7 +8,7 @@ Task Run-It {
     $scriptPath = GetScriptDirectory;
     Import-Module "$scriptPath\..\psake\4.3.0.0\psake.psm1"
 
-    $DocumentationCompiler = $SourceDirectory + "\tools\Documentation Compiler Runner\UCommerce.DocsCompilerRunner.exe"
+    $DocumentationCompiler = $SourceDirectory + "\tools\Documentation\Compiler\UCommerce.DocsCompilerRunner.exe"
     $DocumentationDirectory = $SourceDirectory + "\documentation";
 
     #Step 01: Generate app documentation

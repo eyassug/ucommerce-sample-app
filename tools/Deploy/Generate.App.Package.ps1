@@ -7,7 +7,7 @@ Param(
   [string]$SourceDirectory,
 
   [Parameter(Mandatory=$False)]
-  [string]$DocumentationSourceDirectory = "C:\Projects\ucommerce-sample-app\src\SampleApp.Documentation"
+  [string]$DocumentationSourceDirectory
 )
 
 function GetScriptDirectory { 

@@ -48,16 +48,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="docs\.docslist" />
-    <None Include="docs\how-to\.docslist" />
-    <None Include="docs\how-to\add-images-to-your-documentation.markdown" />
-    <None Include="docs\how-to\create-hyperlinks-in-markdown.markdown" />
-    <None Include="docs\index.markdown" />
-    <None Include="docs\how-to\index.markdown" />
+    <None Include=".docslist" />
+    <None Include="how-to\.docslist" />
+    <None Include="how-to\add-images-to-your-documentation.markdown" />
+    <None Include="how-to\create-hyperlinks-in-markdown.markdown" />
+    <None Include="how-to\test\.docslist" />
+    <None Include="how-to\test\index.markdown" />
+    <None Include="how-to\test\test-article.markdown" />
+    <None Include="index.markdown" />
+    <None Include="how-to\index.markdown" />
+    <None Include="test\.docslist" />
+    <None Include="test\index.markdown" />
+    <None Include="test\test-article.markdown" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="docs\images\cat.jpg" />
+    <Content Include="how-to\images\cat.jpg" />
+    <Content Include="how-to\images\cat2.jpg" />
+    <Content Include="images\cat.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
