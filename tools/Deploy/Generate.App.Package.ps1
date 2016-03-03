@@ -4,10 +4,7 @@ Param(
   [string]$TargetDirectory = "C:\tmp\SampleApp",
     
   [Parameter(Mandatory=$False)]
-  [string]$SourceDirectory,
-
-  [Parameter(Mandatory=$False)]
-  [string]$DocumentationSourceDirectory
+  [string]$SourceDirectory
 )
 
 function GetScriptDirectory { 
@@ -98,14 +95,13 @@ function Run-It () {
     Move-Item $pathToTargetBinDir\*.dll $pathToTargetLibDir
     Remove-Item $pathToTargetBinDir -recurse    
 
-    # Step 05 generate and add documentation to the package
+    # Step 05 add documentation to the package
     $DocumentationProperties = @{
       "TargetDirectory" = $TargetDirectory;
-      "SourceDirectory" = $SourceDirectory + "\..\..";
-      "DocumentationSourceDirectory" = $DocumentationSourceDirectory;
+      "SourceDirectory" = $SourceDirectory + "\..\..\documentation";
     };
 
-    Invoke-PSake "$ScriptPath\Run.Documentation.Scripts.ps1" "Run-It" -parameters $DocumentationProperties
+    Invoke-PSake "$ScriptPath\Add.Documentation.To.Package.ps1" "Run-It" -parameters $DocumentationProperties
 
     #Step 06 pack it up
     MoveNuspecFile;
