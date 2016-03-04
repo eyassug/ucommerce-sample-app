@@ -47,9 +47,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="api-usage\.docslist" />
-    <None Include="api-usage\api-usage.markdown" />
-    <None Include="api-usage\index.markdown" />
+    <None Include="api\.docslist" />
+    <None Include="api\sample-api.markdown" />
+    <None Include="api\index.markdown" />
     <None Include="app-overview.markdown" />
     <None Include="App.config" />
     <None Include=".docslist" />
