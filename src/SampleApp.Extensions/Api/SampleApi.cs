@@ -29,7 +29,6 @@ namespace SampleApp.Extensions.Api
 			var session = sessionProvider.GetSession();
 
 			return new SchemaVersionQuery().Execute(session).FirstOrDefault().ToString();
-
 		}
 	}
 }
