@@ -24,3 +24,9 @@ The sample app installs two buttons on the search node under the settings sectio
 
 # Product Definition
 
+The sample app also installs a product definition called "Shoe" which has two product definition fields "Awesomness" which is of the data type boolean and "ShortStory" which is of the data type short text.
+This product definition is installed using [the initialization pipeline][1], which means that even though you delete the product definition it will be recreated everytime the application is starts up.
+
+![image](images/what-is-installed-4.png)
+
+[1]: http://docs.ucommerce.net/ucommerce/v7.0/extending-ucommerce/Initialize-pipeline.html
