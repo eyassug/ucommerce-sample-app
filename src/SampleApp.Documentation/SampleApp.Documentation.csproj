@@ -54,6 +54,7 @@
     <None Include="App.config" />
     <None Include=".docslist" />
     <None Include="index.markdown" />
+    <None Include="setup.markdown" />
     <None Include="what-is-installed.markdown" />
   </ItemGroup>
   <ItemGroup />
@@ -61,6 +62,7 @@
     <Content Include="images\what-is-installed-1.png" />
     <Content Include="images\what-is-installed-2.png" />
     <Content Include="images\what-is-installed-3.png" />
+    <Content Include="images\what-is-installed-4.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
