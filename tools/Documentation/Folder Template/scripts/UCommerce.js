@@ -31,6 +31,20 @@ $(function() {
 	});
 });
 
+$(function() {	
+	$(".banner img.banner-image").each(function() {
+		var match = location.href.toLowerCase().match(".*documentation\/")
+		if(match == null) 
+		{
+			this.src = "/" + this.getAttribute("src"); 
+		} 
+		else  
+		{
+			this.src = match + this.getAttribute("src"); 
+		}
+	});
+});
+
 $(function() {
 	$('.accordion').children().each(function(i, el) { 
 		var fullPath = $(el).children()[0].href;
