@@ -5,7 +5,7 @@ Param(
 
 function GetDeploymentDirectories {
   return @(
-    "C:\inetpub\u7dev\Website"
+    "C:\inetpub\U7dev\Website"
   )
 }
 
@@ -57,6 +57,13 @@ function Run-It () {
       };
            
       Invoke-PSake "$ScriptPath\Extract.Files.For.App.ps1" "Run-It" -parameters $properties
+
+      $DocumentationProperties = @{
+        "TargetDirectory" = $targetDir;
+        "SourceDirectory" = $SourceDirectory + "\..\..\documentation";
+      };
+
+      Invoke-PSake "$ScriptPath\Add.Documentation.To.Package.ps1" "Run-It" -parameters $DocumentationProperties
 		   
       #Copy nuspec file to Apps folder
       Copy-Item "$scriptPath\..\NuGet\App.Manifest.nuspec" $targetDir -Force		
