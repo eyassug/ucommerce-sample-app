@@ -14,5 +14,5 @@ Task Run-It {
 
     if(EnsureDirectoryIsNotEmpty $SourceDirectory "SourceDirectory") { return }
 
-    Copy-Item $SourceDirectory $TargetDirectory -recurse
+    Copy-Item $SourceDirectory $TargetDirectory -Force -recurse 
 }
