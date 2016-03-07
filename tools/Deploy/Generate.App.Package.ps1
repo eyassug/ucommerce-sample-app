@@ -39,28 +39,59 @@ function GetVersion {
 }
 
 function UpdateAssemblyInfos {
-  $version = GetVersion;
-  $newVersion = 'AssemblyVersion("' + $version + '")';
-  $newFileVersion = 'AssemblyFileVersion("' + $version + '")';
-  
-  foreach ($file in Get-ChildItem $SourceDirectory\..\ AssemblyInfo.cs -Recurse)  
-  {      
-    $TmpFile = $file.FullName + ".tmp"
+    $version = GetVersion;
+    
+    if($version.Substring($version.LastIndexOf(".") + 1) -eq "0") 
+    {
+        $versionDateNumberPart = (Get-Date).Year.ToString().Substring(2) + "" + (Get-Date).DayOfYear.ToString("000");
+        $version = $version.Substring(0, $version.LastIndexOf("0")) + $versionDateNumberPart;
+    }
 
-    get-content $file.FullName | 
-      %{$_ -replace 'AssemblyVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $newVersion } |
-      %{$_ -replace 'AssemblyFileVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $newFileVersion } |
-    set-content $TmpFile -force
-    move-item $TmpFile $file.FullName -force
-  }
+    $newVersion = 'AssemblyVersion("' + $version + '")';
+    $newFileVersion = 'AssemblyFileVersion("' + $version + '")';
+  
+    foreach ($file in Get-ChildItem $SourceDirectory\..\ AssemblyInfo.cs -Recurse)  
+    {      
+        $TmpFile = $file.FullName + ".tmp"
+
+        get-content $file.FullName | 
+            %{$_ -replace 'AssemblyVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $newVersion } |
+            %{$_ -replace 'AssemblyFileVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', $newFileVersion } |
+        set-content $TmpFile -force
+        move-item $TmpFile $file.FullName -force
+    }
+}
+
+function UpdateNuspecVersion {
+    $scriptPath = GetScriptDirectory;
+    $nuspecFile = $nuspecFilePath;
+
+    [xml]$fileContents = Get-Content -Path $nuspecFile
+    $fileContents.package.metadata.version;
+
+    if($fileContents.package.metadata.version.Substring($fileContents.package.metadata.version.LastIndexOf(".") + 1) -eq "0") 
+    {
+        $versionDateNumberPart = (Get-Date).Year.ToString().Substring(2) + "" + (Get-Date).DayOfYear.ToString("000");
+        $fileContents.package.metadata.version = $fileContents.package.metadata.version.Substring(0, $fileContents.package.metadata.version.LastIndexOf("0")) + $versionDateNumberPart;
+        $fileContents.Save($nuspecFile);
+    }
 }
 
 function Run-It () {
-  try {  
+  try {
     $scriptPath = GetScriptDirectory;
+
+    if ($SourceDirectory.Equals(""))
+    {
+      $SourceDirectory = GetProjectFolder;
+    }     
+
+    #Step 01 update assembly version on projects in sln. 
+    UpdateAssemblyInfos;
+   
     Import-Module "$scriptPath\..\psake\4.3.0.0\psake.psm1"
                    
-    #Step 01 rebuild solution
+    #Step 02 rebuild solution
     $SolutionFile = GetSolutionFile;
     $rebuildProperties = @{
       "Solution_file" = $SolutionFile;
@@ -68,18 +99,9 @@ function Run-It () {
       "Configuration" = "Release"
     };
 
-    Invoke-PSake "$ScriptPath\Rebuild.App.Solution.ps1" "Rebuild" -parameters $rebuildProperties
-            
-    if ($SourceDirectory.Equals(""))
-    {
-      $SourceDirectory = GetProjectFolder;
-    }    
-
-    #Step 02 update assembly version on projects in sln. 
-    UpdateAssemblyInfos;    
+    Invoke-PSake "$ScriptPath\Rebuild.App.Solution.ps1" "Rebuild" -parameters $rebuildProperties   
 
     #Step 03 Extract files
-
     $extractProperties = @{
       "TargetDirectory" = $TargetDirectory + "\Content";
       "SourceDirectory" = $SourceDirectory;
@@ -103,14 +125,18 @@ function Run-It () {
 
     Invoke-PSake "$ScriptPath\Add.Documentation.To.Package.ps1" "Run-It" -parameters $DocumentationProperties
 
-    #Step 06 pack it up
+    #6 Move the nuspec file   
     MoveNuspecFile;
     $nuget = $scriptPath + "\..\NuGet";
     $nuspecFilePath = $TargetDirectory + "\App.Manifest.nuspec";
 
+    #7 Update the version in the nuspec file
+    UpdateNuspecVersion;
+    
+    #Step 08 pack it up
     & "$nuget\nuget.exe" pack $nuspecFilePath -OutputDirectory $TargetDirectory;
 
-    #Step 07 remove/delete files. 
+    #Step 09 remove/delete files. 
     Remove-Item $TargetDirectory\* -exclude *.nupkg -recurse
   } catch {  
     Write-Error $_.Exception.Message -ErrorAction Stop  
