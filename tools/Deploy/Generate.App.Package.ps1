@@ -104,7 +104,7 @@ function Run-It () {
 
     Invoke-PSake "$ScriptPath\Rebuild.App.Solution.ps1" "Rebuild" -parameters $rebuildProperties   
 
-    #Step 02 Maintain Nuget dependencies
+    #Step 03 Maintain Nuget dependencies
     $maintainNugetDependenciesProperties = @{
       "projects" = @(
         $SourceDirectory
@@ -113,9 +113,6 @@ function Run-It () {
     };
         
     Invoke-PSake "$ScriptPath\Maintain.Nuget.Dependencies.ps1" "Run-It" -parameters $maintainNugetDependenciesProperties
-    
-    #Step 03 update assembly version on projects in sln. 
-    UpdateAssemblyInfos;    
 
     #Step 04 Extract files
     $extractProperties = @{
