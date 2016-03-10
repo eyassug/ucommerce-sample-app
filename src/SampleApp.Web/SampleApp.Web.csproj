@@ -114,6 +114,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SampleApp.Documentation\SampleApp.Documentation.csproj">
+      <Project>{4170d825-5558-4132-982c-abc6ba785ac9}</Project>
+      <Name>SampleApp.Documentation</Name>
+    </ProjectReference>
     <Content Include="Configuration\TreeNode.config" />
   </ItemGroup>
   <ItemGroup>
@@ -166,8 +170,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>Powershell.exe -ExecutionPolicy Bypass -file "$(SolutionDir)..\tools\Deploy\Deploy.To.uCommerce.ps1" -SourceDirectory "$(ProjectDir)
-Powershell.exe -ExecutionPolicy Bypass -file "$(SolutionDir)..\tools\Deploy\Generate.App.Package.ps1" -TargetDirectory "$(ProjectDir)..\..\package" -SourceDirectory "$(ProjectDir)</PostBuildEvent>
+    <PostBuildEvent>Powershell.exe -ExecutionPolicy Bypass -file "$(SolutionDir)..\tools\Deploy\Deploy.To.uCommerce.ps1" -SourceDirectory $(ProjectDir)
+Powershell.exe -ExecutionPolicy Bypass -file "$(SolutionDir)..\tools\Deploy\Generate.App.Package.ps1" -TargetDirectory "$(ProjectDir)..\..\package" -SourceDirectory $(ProjectDir)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
