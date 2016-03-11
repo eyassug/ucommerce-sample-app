@@ -3,6 +3,16 @@
 This is the uCommerce Samples App that shows some of the most popular extension points to uCommerce.
 You can read the change log below and see what the different versions features.
 
+## Change log for V 1.1.0.16070 ##
+
+* NEW: Support for documentation in apps
+* NEW: AssemblyInfo version now gets updated when the solution is build, the version number used is the version provided in the nuspec file.
+* NEW: Now updates the build number used for the AssembyInfo files, when the version number in the nuspec file ends with *. e.g. "1.1.0.*".
+* NEW: Support for database migrations in apps
+* NEW: Now maintains the dependencies list in the nuspec file with the dependencies present in the project.
+* NOTE: The build number format is YYDDD, e.g. 16070 the two first digits are the last two digit of the year and the last three digits are the the amount of days that have past the current year.
+* NOTE: Documentation on migrations in app can be found here: 
+
 ## Change log for V 1.0.0.0 ##
 
 * NEW: Extension to SampleApp that displays hook-in to tree works across all CMSes.
