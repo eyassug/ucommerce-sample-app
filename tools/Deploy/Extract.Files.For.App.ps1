@@ -15,11 +15,16 @@ function CopyMigrations ($appDirectory) {
 	write-host 'copying migration files from: ' $WorkDictionary..\..\Database
 	write-host 'copying migration files to: ' $appDirectory\Database;
     
-    # Create directory to avoid files being forced into a file
-    New-Item -ItemType Directory "$appDirectory\Database" -Force
+    $DatabaseMigrationDirectory = $WorkDictionary + "\..\..\Database"
 
-    # Copy migrations in place
-    Copy-Item "$WorkDictionary\..\..\Database\*.???.sql" "$appDirectory\Database" -Force
+    if (Test-Path $DatabaseMigrationDirectory)
+    {
+        # Create directory to avoid files being forced into a file
+        New-Item -ItemType Directory "$appDirectory\Database" -Force
+
+        # Copy migrations in place
+        Copy-Item "$DatabaseMigrationDirectory\*.???.sql" "$appDirectory\Database" -Force
+    }
 }
 
 function GetFilesToCopy($path){
