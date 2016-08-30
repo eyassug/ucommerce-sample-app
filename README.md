@@ -30,7 +30,7 @@ Getting started with the Samples App is really easy. Just follow the few steps b
 * Modify the function "GetDeploymentDirectories" so it matches the root of your website
 * Build the solution (Requires Administrator prev. on VS)
 * Restart the website
-* ??
+* ??????
 * Profit
 
 ### Contribution ###
